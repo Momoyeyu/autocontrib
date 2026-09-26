@@ -33,6 +33,13 @@ Also check whether external contributors' issues/comments get maintainer replies
 Prefer issues that are:
 
 - **Unclaimed** and labeled `bug` / `feature` / `good first issue`;
+
+  "Unclaimed" means more than zero comments and no assignees: check the issue's
+  cross-references for open PRs before treating it as free — people open PRs
+  without ever commenting on the issue. `gh api repos/{owner}/{repo}/issues/{n}/timeline`
+  and `gh pr list -R owner/repo --search "#N"` both surface them; a linked open PR
+  counts as claimed even when the issue thread is silent. Also read the issue body
+  to the end — authors sometimes attach a ready branch instead of filing the PR.
 - **Root-caused already** — a maintainer comment naming the faulty file/line converts research risk into implementation work;
 - **Contract-specified** — the maintainer wrote the expected interface or test shape;
 - **Sized for one PR** — under a few hundred changed lines.

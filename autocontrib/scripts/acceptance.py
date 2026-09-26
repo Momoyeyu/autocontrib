@@ -26,15 +26,23 @@ _INSIDER = {"MEMBER", "OWNER", "COLLABORATOR"}
 def merged_prs(repo: str, limit: int) -> list[dict]:
     out = subprocess.run(
         [
-            "gh", "pr", "list", "--repo", repo, "--state", "merged",
-            "--limit", str(limit),
-            "--json", "author,authorAssociation,title,mergedAt",
+            "gh", "api",
+            f"repos/{repo}/pulls?state=closed&sort=updated&direction=desc&per_page={limit}",
         ],
         capture_output=True, text=True, timeout=60,
     )
     if out.returncode != 0:
-        raise RuntimeError(out.stderr.strip() or "gh pr list failed")
-    return json.loads(out.stdout or "[]")
+        raise RuntimeError(out.stderr.strip() or "gh api failed")
+    pulls = json.loads(out.stdout or "[]")
+    return [
+        {
+            "authorAssociation": pr.get("author_association"),
+            "title": pr.get("title"),
+            "mergedAt": pr.get("merged_at"),
+        }
+        for pr in pulls
+        if pr.get("merged_at")
+    ]
 
 
 def classify(prs: list[dict]) -> dict:
