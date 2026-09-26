@@ -1,0 +1,53 @@
+---
+name: autocontrib
+description: An interest-driven open-source contribution pipeline. Profile the user's technical interests, scout GitHub Trending for under-the-radar repositories, assess real contribution openings and acceptance odds, then claim, implement, review, and ship PRs — with the human deciding what to pursue and what to publish.
+---
+
+# autocontrib
+
+Find repositories worth joining early, turn approachable issues into merged PRs, and keep the human in control of the two decisions that matter: **what to work on** and **what to publish**.
+
+Works with agents that load `SKILL.md`, the GitHub CLI (`gh`), and a git checkout per target repository.
+
+## Why autocontrib exists
+
+Trending rank is not contribution fitness. A promising project can still be a bad target: owner-only merge history, hardened review gates, no scoped issues, or a stack mismatch. autocontrib exists to **spend effort only where a PR can plausibly land** — and to keep contribution artifacts (comments, commits, PR text) indistinguishable from a competent human contributor's.
+
+## Profile → Scout → Assess → Implement → Ship → Track
+
+| Stage | Produces | Human decides |
+|---|---|---|
+| **Profile** | interest card: domains, languages, layer (kernel/infra/app) | source of interests |
+| **Scout** | ranked candidates under the star ceiling | which candidates to assess |
+| **Assess** | per-repo acceptance evidence + feasible issues | which issues to pursue |
+| **Implement** | local branches: fix + regression test + draft PR text | approve / adjust each patch |
+| **Ship** | pushed branches, PRs on the correct base branch | — |
+| **Track** | CI status, failure root cause, review replies | escalations |
+
+Two hard gates: nothing is implemented before the human picks issues; nothing is pushed before the human reviews the patch list. Claiming an issue (a comment) is allowed inside Implement.
+
+## Read only what is needed now
+
+| Reference | Load when |
+|---|---|
+| [Scout](references/scout.md) | Discovering and ranking candidate repositories |
+| [Assess](references/assess.md) | Judging a repo's openness and picking issues |
+| [Implement](references/implement.md) | Forking, claiming, coding, committing |
+| [Ship](references/ship.md) | Reviewing locally, pushing, opening PRs, tracking CI |
+
+Do not preload the directory. Follow the current stage only.
+
+## Scripts
+
+`scripts/` holds small stdlib helpers; none are required for the pipeline to work.
+
+- `scripts/trending.py` — fetch GitHub Trending (daily/weekly), filter by star ceiling, print a ranked table.
+- `scripts/acceptance.py` — sample a repo's recent merged PRs via `gh` and report the external-contributor share.
+
+## Defaults
+
+- Star ceiling **10,000**; window **daily + weekly** trending.
+- Issues already claimed by others are skipped, not raced.
+- Security-model redesigns are proposed to maintainers, never implemented blind.
+- Every repo's own rules win: base branch, sign-off/signing, changelog, PR template, ship bar.
+- Contribution artifacts carry no tool attribution. Commits, comments, and PR bodies read like a human contributor's work in the repository's primary language.

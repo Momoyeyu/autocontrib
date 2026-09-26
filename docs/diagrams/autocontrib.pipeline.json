@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "autocontrib · Contribution pipeline",
+    "subtitle": "two human gates, one autonomous loop",
+    "locale": "en",
+    "visual_preset": "editorial",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1020,
+      430
+    ],
+    "legend": {
+      "mode": "hidden"
+    },
+    "output": "autocontrib.pipeline.html"
+  },
+  "layout": {
+    "mode": "grid",
+    "origin": [
+      40,
+      110
+    ],
+    "cols": 5,
+    "cellW": 140,
+    "cellH": 68,
+    "gapX": 60,
+    "gapY": 110
+  },
+  "components": [
+    {
+      "id": "profile",
+      "size": [
+        140,
+        68
+      ],
+      "row": 0,
+      "col": 0,
+      "type": "frontend",
+      "label": "Interest profile",
+      "sublabel": "domains · langs · layer"
+    },
+    {
+      "id": "scout",
+      "size": [
+        140,
+        68
+      ],
+      "row": 0,
+      "col": 1,
+      "type": "backend",
+      "label": "Scan trending",
+      "sublabel": "GitHub Trending · <10k★"
+    },
+    {
+      "id": "assess",
+      "size": [
+        140,
+        68
+      ],
+      "row": 0,
+      "col": 2,
+      "type": "backend",
+      "label": "Assess acceptance",
+      "sublabel": "merged PRs · CI · issues"
+    },
+    {
+      "id": "menu",
+      "size": [
+        140,
+        68
+      ],
+      "row": 0,
+      "col": 3,
+      "type": "database",
+      "label": "Issue menu",
+      "sublabel": "effort × confidence"
+    },
+    {
+      "id": "gate1",
+      "size": [
+        140,
+        68
+      ],
+      "row": 0,
+      "col": 4,
+      "type": "security",
+      "label": "Pick targets?",
+      "sublabel": "repos · issues"
+    },
+    {
+      "id": "implement",
+      "size": [
+        140,
+        68
+      ],
+      "row": 1,
+      "col": 4,
+      "type": "backend",
+      "label": "Implement",
+      "sublabel": "fork · claim · root cause"
+    },
+    {
+      "id": "verify",
+      "size": [
+        140,
+        68
+      ],
+      "row": 1,
+      "col": 3,
+      "type": "backend",
+      "label": "Test + draft PR",
+      "sublabel": "repo's gates · PR text"
+    },
+    {
+      "id": "gate2",
+      "size": [
+        140,
+        68
+      ],
+      "row": 1,
+      "col": 2,
+      "type": "security",
+      "label": "Approve patches?",
+      "sublabel": "approve · adjust · drop"
+    },
+    {
+      "id": "publish",
+      "size": [
+        140,
+        68
+      ],
+      "row": 1,
+      "col": 1,
+      "type": "backend",
+      "label": "Push + open PR",
+      "sublabel": "clean commits · right base"
+    },
+    {
+      "id": "track",
+      "size": [
+        140,
+        68
+      ],
+      "row": 1,
+      "col": 0,
+      "type": "frontend",
+      "label": "Track + hand off",
+      "sublabel": "CI · review · report"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "01  SCOUT",
+      "wraps": [
+        "profile",
+        "scout",
+        "assess",
+        "menu"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "02  GATE",
+      "wraps": [
+        "gate1"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "03  BUILD",
+      "wraps": [
+        "implement",
+        "verify"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "04  GATE",
+      "wraps": [
+        "gate2"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "05  SHIP",
+      "wraps": [
+        "publish",
+        "track"
+      ],
+      "pad": 20
+    }
+  ],
+  "connections": [
+    {
+      "id": "p-s",
+      "from": "profile",
+      "to": "scout"
+    },
+    {
+      "id": "s-a",
+      "from": "scout",
+      "to": "assess"
+    },
+    {
+      "id": "a-m",
+      "from": "assess",
+      "to": "menu"
+    },
+    {
+      "id": "m-g1",
+      "from": "menu",
+      "to": "gate1"
+    },
+    {
+      "id": "revise",
+      "from": "gate1",
+      "to": "scout",
+      "label": "revise",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "top",
+      "via": [
+        [
+          910,
+          74
+        ],
+        [
+          310,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "g1-i",
+      "from": "gate1",
+      "to": "implement"
+    },
+    {
+      "id": "i-v",
+      "from": "implement",
+      "to": "verify"
+    },
+    {
+      "id": "v-g2",
+      "from": "verify",
+      "to": "gate2"
+    },
+    {
+      "id": "adjust",
+      "from": "gate2",
+      "to": "implement",
+      "label": "adjust",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "bottom"
+    },
+    {
+      "id": "g2-p",
+      "from": "gate2",
+      "to": "publish",
+      "label": "approved",
+      "variant": "emphasis"
+    },
+    {
+      "id": "p-t",
+      "from": "publish",
+      "to": "track"
+    }
+  ]
+}

@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "autocontrib · 人在环中的两道闸门",
+    "output": "autocontrib.gates.zh.html",
+    "viewBox": [
+      1090,
+      700
+    ],
+    "column_fit": "spread",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "views": [
+      {
+        "id": "gate-scope",
+        "label": "闸门一：选 issue",
+        "focus": [
+          "human",
+          "agent",
+          "github"
+        ],
+        "note": "agent 负责侦察和评估，但由人来决定哪些 issue 值得做。"
+      },
+      {
+        "id": "gate-ship",
+        "label": "闸门二：批补丁",
+        "focus": [
+          "human",
+          "agent",
+          "github",
+          "maintainer"
+        ],
+        "note": "人没过补丁清单之前不推送；之后交给 CI 和 maintainer。"
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "human",
+      "type": "external",
+      "label": "人"
+    },
+    {
+      "id": "agent",
+      "type": "backend",
+      "label": "Agent"
+    },
+    {
+      "id": "github",
+      "type": "cloud",
+      "label": "GitHub"
+    },
+    {
+      "id": "maintainer",
+      "type": "security",
+      "label": "Maintainer"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 300,
+      "label": "侦察与评估"
+    },
+    {
+      "from": 310,
+      "to": 480,
+      "label": "闸门内构建"
+    },
+    {
+      "from": 490,
+      "to": 640,
+      "label": "发布与跟踪"
+    }
+  ],
+  "messages": [
+    {
+      "id": "interests",
+      "from": "human",
+      "to": "agent",
+      "y": 165,
+      "label": "兴趣 + 约束",
+      "variant": "default"
+    },
+    {
+      "id": "scan",
+      "from": "agent",
+      "to": "github",
+      "y": 195,
+      "label": "trending 扫描 · <10k★",
+      "variant": "emphasis"
+    },
+    {
+      "id": "candidates",
+      "from": "github",
+      "to": "agent",
+      "y": 223,
+      "label": "候选仓库",
+      "variant": "return"
+    },
+    {
+      "id": "probe",
+      "from": "agent",
+      "to": "github",
+      "y": 253,
+      "label": "CONTRIBUTING · CI · merged-PR 探测",
+      "variant": "default"
+    },
+    {
+      "id": "evidence",
+      "from": "github",
+      "to": "agent",
+      "y": 281,
+      "label": "接受度证据",
+      "variant": "return"
+    },
+    {
+      "id": "menu",
+      "from": "agent",
+      "to": "human",
+      "y": 325,
+      "label": "候选仓库 + issue 菜单",
+      "variant": "emphasis",
+      "note": "闸门一 — 批准前不认领、不动手"
+    },
+    {
+      "id": "pick",
+      "from": "human",
+      "to": "agent",
+      "y": 360,
+      "label": "选定 issue",
+      "variant": "security"
+    },
+    {
+      "id": "claim",
+      "from": "agent",
+      "to": "github",
+      "y": 392,
+      "label": "fork · 评论认领 · 开分支",
+      "variant": "default"
+    },
+    {
+      "id": "patchlist",
+      "from": "agent",
+      "to": "human",
+      "y": 430,
+      "label": "补丁清单：diff + 测试 + 限制",
+      "variant": "emphasis",
+      "note": "闸门二 — 批准前不推送"
+    },
+    {
+      "id": "approve",
+      "from": "human",
+      "to": "agent",
+      "y": 465,
+      "label": "批准 / 调整 / 放弃",
+      "variant": "security"
+    },
+    {
+      "id": "push",
+      "from": "agent",
+      "to": "github",
+      "y": 505,
+      "label": "推送 · 开 PR（按仓库 base 与语言）",
+      "variant": "emphasis"
+    },
+    {
+      "id": "reviewreq",
+      "from": "github",
+      "to": "maintainer",
+      "y": 533,
+      "label": "请求 review",
+      "variant": "default"
+    },
+    {
+      "id": "verdict",
+      "from": "maintainer",
+      "to": "github",
+      "y": 561,
+      "label": "review · CI 结论",
+      "variant": "return"
+    },
+    {
+      "id": "watch",
+      "from": "github",
+      "to": "agent",
+      "y": 591,
+      "label": "checks + 评论",
+      "variant": "return"
+    },
+    {
+      "id": "report",
+      "from": "agent",
+      "to": "human",
+      "y": 610,
+      "label": "状态：merged / open / 失败",
+      "variant": "default"
+    }
+  ]
+}

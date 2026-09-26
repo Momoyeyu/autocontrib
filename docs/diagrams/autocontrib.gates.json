@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "autocontrib · Human gates in the loop",
+    "output": "autocontrib.gates.html",
+    "viewBox": [
+      1090,
+      700
+    ],
+    "column_fit": "spread",
+    "quality_profile": "showcase",
+    "legend": {
+      "mode": "hidden"
+    },
+    "views": [
+      {
+        "id": "gate-scope",
+        "label": "Gate: pick issues",
+        "focus": [
+          "human",
+          "agent",
+          "github"
+        ],
+        "note": "The agent scouts and assesses, but the human chooses which issues are worth implementing."
+      },
+      {
+        "id": "gate-ship",
+        "label": "Gate: approve patches",
+        "focus": [
+          "human",
+          "agent",
+          "github",
+          "maintainer"
+        ],
+        "note": "Nothing is pushed until the human approves the patch list; after that CI and maintainer review take over."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "human",
+      "type": "external",
+      "label": "Human"
+    },
+    {
+      "id": "agent",
+      "type": "backend",
+      "label": "Agent"
+    },
+    {
+      "id": "github",
+      "type": "cloud",
+      "label": "GitHub"
+    },
+    {
+      "id": "maintainer",
+      "type": "security",
+      "label": "Maintainer"
+    }
+  ],
+  "segments": [
+    {
+      "from": 150,
+      "to": 300,
+      "label": "Scout & assess"
+    },
+    {
+      "from": 310,
+      "to": 480,
+      "label": "Build under gate"
+    },
+    {
+      "from": 490,
+      "to": 640,
+      "label": "Ship & track"
+    }
+  ],
+  "messages": [
+    {
+      "id": "interests",
+      "from": "human",
+      "to": "agent",
+      "y": 165,
+      "label": "interests + limits",
+      "variant": "default"
+    },
+    {
+      "id": "scan",
+      "from": "agent",
+      "to": "github",
+      "y": 195,
+      "label": "trending scan · <10k★",
+      "variant": "emphasis"
+    },
+    {
+      "id": "candidates",
+      "from": "github",
+      "to": "agent",
+      "y": 223,
+      "label": "candidate repos",
+      "variant": "return"
+    },
+    {
+      "id": "probe",
+      "from": "agent",
+      "to": "github",
+      "y": 253,
+      "label": "CONTRIBUTING · CI · merged-PR probe",
+      "variant": "default"
+    },
+    {
+      "id": "evidence",
+      "from": "github",
+      "to": "agent",
+      "y": 281,
+      "label": "acceptance evidence",
+      "variant": "return"
+    },
+    {
+      "id": "menu",
+      "from": "agent",
+      "to": "human",
+      "y": 325,
+      "label": "ranked repos + issue menu",
+      "variant": "emphasis",
+      "note": "GATE 1 — nothing is claimed or built before this approval"
+    },
+    {
+      "id": "pick",
+      "from": "human",
+      "to": "agent",
+      "y": 360,
+      "label": "pick issues",
+      "variant": "security"
+    },
+    {
+      "id": "claim",
+      "from": "agent",
+      "to": "github",
+      "y": 392,
+      "label": "fork · claim comment · branch",
+      "variant": "default"
+    },
+    {
+      "id": "patchlist",
+      "from": "agent",
+      "to": "human",
+      "y": 430,
+      "label": "patch list: diff + tests + limits",
+      "variant": "emphasis",
+      "note": "GATE 2 — nothing is pushed before this approval"
+    },
+    {
+      "id": "approve",
+      "from": "human",
+      "to": "agent",
+      "y": 465,
+      "label": "approve / adjust / drop",
+      "variant": "security"
+    },
+    {
+      "id": "push",
+      "from": "agent",
+      "to": "github",
+      "y": 505,
+      "label": "push · open PR (repo's base + language)",
+      "variant": "emphasis"
+    },
+    {
+      "id": "reviewreq",
+      "from": "github",
+      "to": "maintainer",
+      "y": 533,
+      "label": "review requested",
+      "variant": "default"
+    },
+    {
+      "id": "verdict",
+      "from": "maintainer",
+      "to": "github",
+      "y": 561,
+      "label": "review · CI verdict",
+      "variant": "return"
+    },
+    {
+      "id": "watch",
+      "from": "github",
+      "to": "agent",
+      "y": 591,
+      "label": "checks + comments",
+      "variant": "return"
+    },
+    {
+      "id": "report",
+      "from": "agent",
+      "to": "human",
+      "y": 610,
+      "label": "status: merged / open / failed",
+      "variant": "default"
+    }
+  ]
+}

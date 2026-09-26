@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "autocontrib · 开源贡献流水线",
+    "subtitle": "两道人工闸门，一段自主循环",
+    "locale": "en",
+    "visual_preset": "editorial",
+    "quality_profile": "showcase",
+    "viewBox": [
+      1020,
+      430
+    ],
+    "legend": {
+      "mode": "hidden"
+    },
+    "output": "autocontrib.pipeline.zh.html"
+  },
+  "layout": {
+    "mode": "grid",
+    "origin": [
+      40,
+      110
+    ],
+    "cols": 5,
+    "cellW": 140,
+    "cellH": 68,
+    "gapX": 60,
+    "gapY": 110
+  },
+  "components": [
+    {
+      "id": "profile",
+      "size": [
+        140,
+        68
+      ],
+      "row": 0,
+      "col": 0,
+      "type": "frontend",
+      "label": "兴趣画像",
+      "sublabel": "领域 · 语言 · 层次"
+    },
+    {
+      "id": "scout",
+      "size": [
+        140,
+        68
+      ],
+      "row": 0,
+      "col": 1,
+      "type": "backend",
+      "label": "扫描 Trending",
+      "sublabel": "GitHub Trending · <10k★"
+    },
+    {
+      "id": "assess",
+      "size": [
+        140,
+        68
+      ],
+      "row": 0,
+      "col": 2,
+      "type": "backend",
+      "label": "评估接受度",
+      "sublabel": "merged PR · CI · issue"
+    },
+    {
+      "id": "menu",
+      "size": [
+        140,
+        68
+      ],
+      "row": 0,
+      "col": 3,
+      "type": "database",
+      "label": "issue 菜单",
+      "sublabel": "工作量 × 把握"
+    },
+    {
+      "id": "gate1",
+      "size": [
+        140,
+        68
+      ],
+      "row": 0,
+      "col": 4,
+      "type": "security",
+      "label": "选目标?",
+      "sublabel": "仓库 · issue"
+    },
+    {
+      "id": "implement",
+      "size": [
+        140,
+        68
+      ],
+      "row": 1,
+      "col": 4,
+      "type": "backend",
+      "label": "动手实现",
+      "sublabel": "fork · 认领 · 根因"
+    },
+    {
+      "id": "verify",
+      "size": [
+        140,
+        68
+      ],
+      "row": 1,
+      "col": 3,
+      "type": "backend",
+      "label": "测试 + PR 草稿",
+      "sublabel": "仓库门禁 · PR 文案"
+    },
+    {
+      "id": "gate2",
+      "size": [
+        140,
+        68
+      ],
+      "row": 1,
+      "col": 2,
+      "type": "security",
+      "label": "批准补丁?",
+      "sublabel": "批准 · 调整 · 放弃"
+    },
+    {
+      "id": "publish",
+      "size": [
+        140,
+        68
+      ],
+      "row": 1,
+      "col": 1,
+      "type": "backend",
+      "label": "推送 + 开 PR",
+      "sublabel": "干净 commit · 正确 base"
+    },
+    {
+      "id": "track",
+      "size": [
+        140,
+        68
+      ],
+      "row": 1,
+      "col": 0,
+      "type": "frontend",
+      "label": "跟踪 + 交接",
+      "sublabel": "CI · review · 汇报"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "01  侦察",
+      "wraps": [
+        "profile",
+        "scout",
+        "assess",
+        "menu"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "02  闸门",
+      "wraps": [
+        "gate1"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "03  构建",
+      "wraps": [
+        "implement",
+        "verify"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "04  闸门",
+      "wraps": [
+        "gate2"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "05  发布",
+      "wraps": [
+        "publish",
+        "track"
+      ],
+      "pad": 20
+    }
+  ],
+  "connections": [
+    {
+      "id": "p-s",
+      "from": "profile",
+      "to": "scout"
+    },
+    {
+      "id": "s-a",
+      "from": "scout",
+      "to": "assess"
+    },
+    {
+      "id": "a-m",
+      "from": "assess",
+      "to": "menu"
+    },
+    {
+      "id": "m-g1",
+      "from": "menu",
+      "to": "gate1"
+    },
+    {
+      "id": "revise",
+      "from": "gate1",
+      "to": "scout",
+      "label": "改选",
+      "variant": "dashed",
+      "fromSide": "top",
+      "toSide": "top",
+      "via": [
+        [
+          910,
+          74
+        ],
+        [
+          310,
+          74
+        ]
+      ]
+    },
+    {
+      "id": "g1-i",
+      "from": "gate1",
+      "to": "implement"
+    },
+    {
+      "id": "i-v",
+      "from": "implement",
+      "to": "verify"
+    },
+    {
+      "id": "v-g2",
+      "from": "verify",
+      "to": "gate2"
+    },
+    {
+      "id": "adjust",
+      "from": "gate2",
+      "to": "implement",
+      "label": "调整",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "bottom"
+    },
+    {
+      "id": "g2-p",
+      "from": "gate2",
+      "to": "publish",
+      "label": "批准",
+      "variant": "emphasis"
+    },
+    {
+      "id": "p-t",
+      "from": "publish",
+      "to": "track"
+    }
+  ]
+}
