@@ -6,7 +6,9 @@ Read when discovering candidate repositories. Scout turns the user's interests p
 
 Read the user's stated source of interests (blog, site, pinned repos, resume). Compress it into an interest card: **domains** (e.g. inference optimization, agents), **languages**, and **preferred layer** (kernel/infra/library/app). Domains rank above languages — a perfect-language project in an alien domain is a weak target.
 
-If the user supplies no source, ask once for a link or a short interest list. Do not guess.
+Also build a **capability card**: what hardware/compute the user actually has (GPU? CUDA or Apple Silicon only? remote boxes? laptop only?). Assess filters issues against this — ask once, here, not mid-pipeline.
+
+If the user supplies no source, ask once for a link or a short interest list plus the resource line. Do not guess.
 
 ## Pull trending candidates
 
@@ -31,4 +33,4 @@ Flag for the user, don't silently drop:
 
 ## Present, then stop
 
-End Scout with a ranked table: project, stars, language, fit score, one-line why. Ask which candidates to carry into Assess. Do not fork, clone, or open issues yet.
+End Scout with a ranked table: project, stars, language, fit score, one-line why. Then present a **blocking choice** — which candidates to carry into Assess (offer "all / picks / none / adjust criteria") — and wait for the answer. Do not fork, clone, or open issues yet.

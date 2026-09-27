@@ -17,14 +17,22 @@ Trending rank is not contribution fitness. A promising project can still be a ba
 
 | Stage | Produces | Human decides |
 |---|---|---|
-| **Profile** | interest card: domains, languages, layer (kernel/infra/app) | source of interests |
+| **Profile** | interest card: domains, languages, layer (kernel/infra/app); capability card: available hardware/compute | source of interests + resource constraints |
 | **Scout** | ranked candidates under the star ceiling | which candidates to assess |
 | **Assess** | per-repo acceptance evidence + feasible issues | which issues to pursue |
 | **Implement** | local branches: fix + regression test + draft PR text | approve / adjust each patch |
 | **Ship** | pushed branches, PRs on the correct base branch | — |
 | **Track** | CI status, failure root cause, review replies | escalations |
 
-Two hard gates: nothing is implemented before the human picks issues; nothing is pushed before the human reviews the patch list. Claiming an issue (a comment) is allowed inside Implement.
+## Stage gates are blocking
+
+Every stage ends by **presenting a choice and stopping** — a plain-text summary that lets the conversation drift forward is not a gate. At each boundary:
+
+1. Emit the stage deliverable (table or list).
+2. Offer an explicit menu — e.g. "assess: all / picks / none", "pursue these issues: which?", "ship: approve / adjust / drop" — using the host agent's multiple-choice mechanism when one exists.
+3. **Wait.** Do not start the next stage until the human answers.
+
+Hard gates on top of that: nothing is implemented before the human picks issues; nothing is pushed before the human reviews the patch list. Claiming an issue (a comment) is allowed inside Implement — but only after the feasibility check in Assess passes.
 
 ## Read only what is needed now
 

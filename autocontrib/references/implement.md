@@ -26,4 +26,4 @@ Read when the human has picked issues. Implement produces tested local branches 
 
 ## Stop at the patch list
 
-When all picked issues are done, present the review list: per change — repo, issue, branch, files changed, what it does in one line, tests run and results, and known limitations. Then stop. Pushing is Ship's job and requires explicit approval.
+When all picked issues are done, present the review list: per change — repo, issue, branch, files changed, what it does in one line, tests run and results, and known limitations. Then present a **blocking choice** — "ship: approve / adjust / drop" per patch — and wait. Pushing is Ship's job and requires explicit approval.
