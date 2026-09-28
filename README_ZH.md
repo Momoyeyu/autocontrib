@@ -55,6 +55,20 @@ npx skills add Momoyeyu/autocontrib -g
 
 所有面向真人的东西——issue 评论、commit message、PR 正文——都按贡献者的写法来写：简洁、技术化、用仓库的主要语言、不带工具署名。
 
+## 真的能落地吗
+
+成绩单只数真正被合并的 PR——open 的永远不会被报成完成。现在只有一条，但一条就够了：落在哪，比落几个重要。
+
+### Tencent-Hunyuan/UniRL
+
+<sub>已合并 · [#530](https://github.com/Tencent-Hunyuan/UniRL/pull/530)，修复 [#514](https://github.com/Tencent-Hunyuan/UniRL/issues/514) · 提交当天被合并</sub>
+
+[UniRL](https://github.com/Tencent-Hunyuan/UniRL) 是腾讯混元的统一多模态强化学习训练框架。
+
+**做了什么。** 从 sharded-state 路径删掉三个无人调用的辅助函数（+1/−34）。这不是顺手清理：这些函数按 key 子串匹配 tensor——从 #432 开始可训练模块旁边能挂冻结的 teacher adapter，谁调用了它们，就会把 teacher 权重悄悄混进 student 的导出。真正在用的路径早已是 adapter-aware 的，这段死代码留着就是个隐患。
+
+**autocontrib 做了什么。** Scout 阶段把 UniRL 识别为「外部 PR 真的会被合」的仓库；Assess 阶段在写代码之前把 #514 查到底——没有调用方、没有撞车的 PR、真实路径都走 `peft_merge`；仓库的 no-`tests/` 政策让测试无法提交，于是写了一次性验证 harness，在 Apple Silicon 和 CUDA 两台机器上跑通；最后按项目自己的 checklist 开 PR，并在正文里如实披露有 AI 参与。当天被合并。
+
 ## 试试看
 
 装好 skill，直接说：
