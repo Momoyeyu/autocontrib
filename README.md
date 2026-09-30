@@ -3,25 +3,25 @@
 </p>
 
 <p align="center">
-  <img src="docs/diagrams/autocontrib.brand.svg" alt="autocontrib" width="620">
+  <img src="docs/diagrams/issuekiller.brand.svg" alt="issuekiller" width="620">
 </p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-22c55e?style=flat-square" alt="MIT License" /></a>
-  <a href="autocontrib/SKILL.md"><img src="https://img.shields.io/badge/Agent-Skill-7C3AED?style=flat-square" alt="Agent Skill" /></a>
+  <a href="issuekiller/SKILL.md"><img src="https://img.shields.io/badge/Agent-Skill-7C3AED?style=flat-square" alt="Agent Skill" /></a>
 </p>
 
-You want to contribute to open source — learn a codebase you admire, build a public track record, give something back. But most attempts don't fail at the code. They fail earlier: the issue was claimed hours before you found it; the repo's merge history is 100% maintainer commits; the bug you chased actually roots in a dependency, not the repo you filed against; or your patch is fine and simply never gets reviewed, because outsiders never do.
+GitHub is full of issues that want fixing — and most of them can't actually be closed by you. The issue was claimed hours before you found it; the repo's merge history is 100% maintainer commits; the bug you chased roots in a dependency, not the repo it was filed against; or your patch is fine and simply never gets reviewed, because outsiders never do.
 
-autocontrib is an Agent Skill built around that observation: **the hard part of contributing isn't writing the patch — it's finding a repository where your patch can land.** It walks the full arc from your interests to an open PR, and it was distilled from a real working session rather than an idealized flowchart.
+issuekiller is an Agent Skill built around that observation: **the kill isn't the hard part — picking a target that can actually be killed is.** It walks the full arc from your interests to a merged PR, and it was distilled from a real working session rather than an idealized flowchart.
 
 ```bash
-npx skills add Momoyeyu/autocontrib -g
+npx skills add Momoyeyu/issuekiller -g
 ```
 
 ## What it actually does
 
-![pipeline](docs/diagrams/autocontrib.pipeline.svg)
+![pipeline](docs/diagrams/issuekiller.pipeline.svg)
 
 Six stages, but you only ever make **two decisions**:
 
@@ -30,11 +30,11 @@ Six stages, but you only ever make **two decisions**:
 
 Between those two gates it's autonomous. After the second, it pushes, opens the PR on the right base branch, and babysits CI until the maintainer takes over.
 
-![the two gates](docs/diagrams/autocontrib.gates.svg)
+![the two gates](docs/diagrams/issuekiller.gates.svg)
 
 ## The part most tools skip
 
-The interesting stage isn't implementation — it's **assessment**. autocontrib checks things agents usually don't:
+The interesting stage isn't implementation — it's **assessment**. issuekiller checks things agents usually don't:
 
 - **Do outsiders get merged?** It samples recent merged PRs by `authorAssociation`. A repo where every merge is `OWNER` is a closed club, no matter how good the issues look.
 - **Does the fix live here?** Bugs surface in one repo but root in its dependencies — the agent follows imports before committing to a target.
@@ -67,7 +67,7 @@ The scoreboard counts only merged PRs — an open one is never called done. Thre
 
 **What we shipped.** Under Transformers 5, GLM-4.5 MoE configs moved RoPE settings into `config.rope_parameters`, but `Glm4MoeDecoderLayer` still read the legacy top-level fields — every layer silently fell back to `rope_theta=10000`, quietly degrading long-context output. The patch resolves both fields through `get_rope_config` and adds a regression test that fails on the old code (+104/−5).
 
-**What autocontrib did.** The bug was *filed* on `ktransformers`; assessment followed the imports into this sibling repo before a line was written. Then it verified on real hardware: an RTX 4090 D ran a tiny GLM4-MoE checkpoint end-to-end, confirming `rope_theta` resolves to `1_000_000` instead of `10_000`, with rotary outputs diverging past position 4096. Same fix as upstream `sgl-project/sglang#21135` — this fork had missed it.
+**What issuekiller did.** The bug was *filed* on `ktransformers`; assessment followed the imports into this sibling repo before a line was written. Then it verified on real hardware: an RTX 4090 D ran a tiny GLM4-MoE checkpoint end-to-end, confirming `rope_theta` resolves to `1_000_000` instead of `10_000`, with rotary outputs diverging past position 4096. Same fix as upstream `sgl-project/sglang#21135` — this fork had missed it.
 
 ### Tencent-Hunyuan/UniRL
 
@@ -77,7 +77,7 @@ The scoreboard counts only merged PRs — an open one is never called done. Thre
 
 **What we shipped.** Three uncalled helpers deleted from the sharded-state path (+1/−34). It wasn't cosmetic: they selected tensors by key substring, so once frozen "teacher" adapters could sit beside the trainable one, they would have silently leaked teacher weights into student exports. The live paths were already adapter-aware — the dead code was a quiet footgun.
 
-**What autocontrib did.** Scouted UniRL as a repo where outside PRs actually get merged; assessed issue #514 before writing code — no in-repo callers, no competing PRs, the real paths go through `peft_merge`; built a throwaway verification harness (the repo's no-`tests/` policy meant nothing could be committed) and ran it on both Apple Silicon and CUDA; opened the PR against the project's own checklist, with the AI assistance disclosed. Merged the same day.
+**What issuekiller did.** Scouted UniRL as a repo where outside PRs actually get merged; assessed issue #514 before writing code — no in-repo callers, no competing PRs, the real paths go through `peft_merge`; built a throwaway verification harness (the repo's no-`tests/` policy meant nothing could be committed) and ran it on both Apple Silicon and CUDA; opened the PR against the project's own checklist, with the AI assistance disclosed. Merged the same day.
 
 ### MakazhanAlpamys/Soup
 
@@ -87,7 +87,7 @@ The scoreboard counts only merged PRs — an open one is never called done. Thre
 
 **What we shipped.** The streamed test builders hardcoded `cuda or cpu`, so on Apple Silicon the model landed on CPU while the trainer picked `mps:0` — a device mismatch that had parked 32 test cases behind `skipif` marks. One `accelerator_device()` helper in `conftest`, returning exactly what the trainer picks, un-skipped the whole suite; all 32 pass (+97/−127).
 
-**What autocontrib did.** Claimed the issue, consolidated three copies of the device probe into one helper, and verified both sides of the matrix on real hardware — the full suite on an M3 Ultra (29,080 tests, skip count down exactly 32) and the unchanged CUDA path on a 4090 D. Iterated through the maintainer's review to approved, then merged.
+**What issuekiller did.** Claimed the issue, consolidated three copies of the device probe into one helper, and verified both sides of the matrix on real hardware — the full suite on an M3 Ultra (29,080 tests, skip count down exactly 32) and the unchanged CUDA path on a 4090 D. Iterated through the maintainer's review to approved, then merged.
 
 ## Try it
 
@@ -112,21 +112,21 @@ The first request builds an interest card and a ranked table, then asks which re
 Two small stdlib-only tools ship with the skill; the pipeline works fine without them:
 
 ```bash
-python3 autocontrib/scripts/trending.py --weekly --max-stars 10000   # Trending under a star ceiling
-python3 autocontrib/scripts/acceptance.py --repo OWNER/NAME          # external-PR acceptance probe
+python3 issuekiller/scripts/trending.py --weekly --max-stars 10000   # Trending under a star ceiling
+python3 issuekiller/scripts/acceptance.py --repo OWNER/NAME          # external-PR acceptance probe
 ```
 
 ## Skill structure
 
 | File | Load when |
 |---|---|
-| [`autocontrib/SKILL.md`](autocontrib/SKILL.md) | Entry: pipeline, gates, routing |
-| [`references/scout.md`](autocontrib/references/scout.md) | Discovering and ranking candidates |
-| [`references/assess.md`](autocontrib/references/assess.md) | Judging repo openness, picking issues |
-| [`references/implement.md`](autocontrib/references/implement.md) | Forking, claiming, coding, committing |
-| [`references/ship.md`](autocontrib/references/ship.md) | Pushing, PRs, tracking CI |
-| [`scripts/trending.py`](autocontrib/scripts/trending.py) | Run, not read |
-| [`scripts/acceptance.py`](autocontrib/scripts/acceptance.py) | Run, not read |
+| [`issuekiller/SKILL.md`](issuekiller/SKILL.md) | Entry: pipeline, gates, routing |
+| [`references/scout.md`](issuekiller/references/scout.md) | Discovering and ranking candidates |
+| [`references/assess.md`](issuekiller/references/assess.md) | Judging repo openness, picking issues |
+| [`references/implement.md`](issuekiller/references/implement.md) | Forking, claiming, coding, committing |
+| [`references/ship.md`](issuekiller/references/ship.md) | Pushing, PRs, tracking CI |
+| [`scripts/trending.py`](issuekiller/scripts/trending.py) | Run, not read |
+| [`scripts/acceptance.py`](issuekiller/scripts/acceptance.py) | Run, not read |
 
 Progressive disclosure: read the current stage's reference only.
 

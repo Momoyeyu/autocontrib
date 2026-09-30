@@ -2,8 +2,8 @@
   "schema_version": 1,
   "diagram_type": "sequence",
   "meta": {
-    "title": "autocontrib · 人在环中的两道闸门",
-    "output": "autocontrib.gates.zh.html",
+    "title": "issuekiller · Human gates in the loop",
+    "output": "issuekiller.gates.html",
     "viewBox": [
       1090,
       700
@@ -16,24 +16,24 @@
     "views": [
       {
         "id": "gate-scope",
-        "label": "闸门一：选 issue",
+        "label": "Gate: pick issues",
         "focus": [
           "human",
           "agent",
           "github"
         ],
-        "note": "agent 负责侦察和评估，但由人来决定哪些 issue 值得做。"
+        "note": "The agent scouts and assesses, but the human chooses which issues are worth implementing."
       },
       {
         "id": "gate-ship",
-        "label": "闸门二：批补丁",
+        "label": "Gate: approve patches",
         "focus": [
           "human",
           "agent",
           "github",
           "maintainer"
         ],
-        "note": "人没过补丁清单之前不推送；之后交给 CI 和 maintainer。"
+        "note": "Nothing is pushed until the human approves the patch list; after that CI and maintainer review take over."
       }
     ]
   },
@@ -41,7 +41,7 @@
     {
       "id": "human",
       "type": "external",
-      "label": "人"
+      "label": "Human"
     },
     {
       "id": "agent",
@@ -63,17 +63,17 @@
     {
       "from": 150,
       "to": 300,
-      "label": "侦察与评估"
+      "label": "Scout & assess"
     },
     {
       "from": 310,
       "to": 480,
-      "label": "闸门内构建"
+      "label": "Build under gate"
     },
     {
       "from": 490,
       "to": 640,
-      "label": "发布与跟踪"
+      "label": "Ship & track"
     }
   ],
   "messages": [
@@ -82,7 +82,7 @@
       "from": "human",
       "to": "agent",
       "y": 165,
-      "label": "兴趣 + 约束",
+      "label": "interests + limits",
       "variant": "default"
     },
     {
@@ -90,7 +90,7 @@
       "from": "agent",
       "to": "github",
       "y": 195,
-      "label": "trending 扫描 · <10k★",
+      "label": "trending scan · <10k★",
       "variant": "emphasis"
     },
     {
@@ -98,7 +98,7 @@
       "from": "github",
       "to": "agent",
       "y": 223,
-      "label": "候选仓库",
+      "label": "candidate repos",
       "variant": "return"
     },
     {
@@ -106,7 +106,7 @@
       "from": "agent",
       "to": "github",
       "y": 253,
-      "label": "CONTRIBUTING · CI · merged-PR 探测",
+      "label": "CONTRIBUTING · CI · merged-PR probe",
       "variant": "default"
     },
     {
@@ -114,7 +114,7 @@
       "from": "github",
       "to": "agent",
       "y": 281,
-      "label": "接受度证据",
+      "label": "acceptance evidence",
       "variant": "return"
     },
     {
@@ -122,16 +122,16 @@
       "from": "agent",
       "to": "human",
       "y": 325,
-      "label": "候选仓库 + issue 菜单",
+      "label": "ranked repos + issue menu",
       "variant": "emphasis",
-      "note": "闸门一 — 批准前不认领、不动手"
+      "note": "GATE 1 — nothing is claimed or built before this approval"
     },
     {
       "id": "pick",
       "from": "human",
       "to": "agent",
       "y": 360,
-      "label": "选定 issue",
+      "label": "pick issues",
       "variant": "security"
     },
     {
@@ -139,7 +139,7 @@
       "from": "agent",
       "to": "github",
       "y": 392,
-      "label": "fork · 评论认领 · 开分支",
+      "label": "fork · claim comment · branch",
       "variant": "default"
     },
     {
@@ -147,16 +147,16 @@
       "from": "agent",
       "to": "human",
       "y": 430,
-      "label": "补丁清单：diff + 测试 + 限制",
+      "label": "patch list: diff + tests + limits",
       "variant": "emphasis",
-      "note": "闸门二 — 批准前不推送"
+      "note": "GATE 2 — nothing is pushed before this approval"
     },
     {
       "id": "approve",
       "from": "human",
       "to": "agent",
       "y": 465,
-      "label": "批准 / 调整 / 放弃",
+      "label": "approve / adjust / drop",
       "variant": "security"
     },
     {
@@ -164,7 +164,7 @@
       "from": "agent",
       "to": "github",
       "y": 505,
-      "label": "推送 · 开 PR（按仓库 base 与语言）",
+      "label": "push · open PR (repo's base + language)",
       "variant": "emphasis"
     },
     {
@@ -172,7 +172,7 @@
       "from": "github",
       "to": "maintainer",
       "y": 533,
-      "label": "请求 review",
+      "label": "review requested",
       "variant": "default"
     },
     {
@@ -180,7 +180,7 @@
       "from": "maintainer",
       "to": "github",
       "y": 561,
-      "label": "review · CI 结论",
+      "label": "review · CI verdict",
       "variant": "return"
     },
     {
@@ -188,7 +188,7 @@
       "from": "github",
       "to": "agent",
       "y": 591,
-      "label": "checks + 评论",
+      "label": "checks + comments",
       "variant": "return"
     },
     {
@@ -196,7 +196,7 @@
       "from": "agent",
       "to": "human",
       "y": 610,
-      "label": "状态：merged / open / 失败",
+      "label": "status: merged / open / failed",
       "variant": "default"
     }
   ]

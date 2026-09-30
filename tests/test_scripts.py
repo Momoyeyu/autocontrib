@@ -1,11 +1,11 @@
-"""Parser/aggregation tests for autocontrib scripts — no network, no gh."""
+"""Parser/aggregation tests for issuekiller scripts — no network, no gh."""
 
 from __future__ import annotations
 
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "autocontrib" / "scripts"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "issuekiller" / "scripts"))
 
 import acceptance  # noqa: E402
 import trending  # noqa: E402

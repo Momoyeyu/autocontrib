@@ -26,8 +26,8 @@
   <line x1="500" y1="110" x2="500" y2="290" stroke="#E8623C" stroke-opacity="0.4" stroke-width="4" stroke-linecap="round"/>
 
   <text x="560" y="222" font-family="'Helvetica Neue', 'SF Pro Display', Arial, sans-serif"
-        font-weight="700" font-size="148" letter-spacing="-5" fill="#C74B28">auto<tspan fill="url(#word)">contrib</tspan></text>
-  <text x="566" y="292" font-family="'Helvetica Neue', 'SF Pro Display', Arial, sans-serif"
-        font-weight="500" font-size="44" letter-spacing="1" fill="#D97E4E">Land PRs in projects that want them</text>
+        font-weight="700" font-size="148" letter-spacing="-5" fill="#C74B28">issue<tspan fill="url(#word)">killer</tspan></text>
+  <text x="566" y="292" font-family="'Helvetica Neue', 'PingFang SC', 'SF Pro Display', Arial, sans-serif"
+        font-weight="500" font-size="44" letter-spacing="1" fill="#D97E4E">把 PR 提到愿意收它的地方</text>
   </g>
 </svg>
