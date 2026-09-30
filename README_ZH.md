@@ -57,7 +57,17 @@ npx skills add Momoyeyu/autocontrib -g
 
 ## 真的能落地吗
 
-成绩单只数真正被合并的 PR——open 的永远不会被报成完成。现在只有一条，但一条就够了：落在哪，比落几个重要。
+成绩单只数真正被合并的 PR——open 的永远不会被报成完成。目前三条，而重点不变：落在哪，比落几个重要。
+
+### kvcache-ai/sglang
+
+<sub>已合并 · [#100](https://github.com/kvcache-ai/sglang/pull/100)，修复 [ktransformers#2214](https://github.com/kvcache-ai/ktransformers/issues/2214) · bug 报在一个仓库，修复落在它的 sibling</sub>
+
+[SGLang](https://github.com/kvcache-ai/sglang) 是面向 LLM 和视觉语言模型的高性能推理框架——这里指 kvcache-ai org 的 fork。
+
+**做了什么。** Transformers 5 下 GLM-4.5 MoE 的 RoPE 配置挪进了 `config.rope_parameters`，但 `Glm4MoeDecoderLayer` 还在读旧的顶层字段——每层静默回退到 `rope_theta=10000`，长上下文输出悄悄变差。补丁把两个字段统一走 `get_rope_config` 解析，并补了在旧代码上必失败的回归测试（+104/−5）。
+
+**autocontrib 做了什么。** bug 报在 `ktransformers`——Assess 顺着 import 追到 sibling 仓库才动手。然后在真机上验证：RTX 4090 D 跑通一个小型 GLM4-MoE checkpoint，确认 `rope_theta` 解析出 `1_000_000` 而非旧的 `10_000`，rotary 输出在 position 4096 之后如预期分叉。与上游 `sgl-project/sglang#21135` 是同一个修复——这个 fork 漏掉了它。
 
 ### Tencent-Hunyuan/UniRL
 
@@ -68,6 +78,16 @@ npx skills add Momoyeyu/autocontrib -g
 **做了什么。** 从 sharded-state 路径删掉三个无人调用的辅助函数（+1/−34）。这不是顺手清理：这些函数按 key 子串匹配 tensor——从 #432 开始可训练模块旁边能挂冻结的 teacher adapter，谁调用了它们，就会把 teacher 权重悄悄混进 student 的导出。真正在用的路径早已是 adapter-aware 的，这段死代码留着就是个隐患。
 
 **autocontrib 做了什么。** Scout 阶段把 UniRL 识别为「外部 PR 真的会被合」的仓库；Assess 阶段在写代码之前把 #514 查到底——没有调用方、没有撞车的 PR、真实路径都走 `peft_merge`；仓库的 no-`tests/` 政策让测试无法提交，于是写了一次性验证 harness，在 Apple Silicon 和 CUDA 两台机器上跑通；最后按项目自己的 checklist 开 PR，并在正文里如实披露有 AI 参与。当天被合并。
+
+### MakazhanAlpamys/Soup
+
+<sub>已合并 · [#1375](https://github.com/MakazhanAlpamys/Soup/pull/1375)，修复 [#1355](https://github.com/MakazhanAlpamys/Soup/issues/1355) · 32 个被跳过的测试回归</sub>
+
+[Soup](https://github.com/MakazhanAlpamys/Soup) 用一个 YAML 微调 LLM——layer streaming 能在 4 GB 显存的笔记本 GPU 上训练 8B 模型。
+
+**做了什么。** streamed 测试的 builder 写死了 `cuda or cpu`：在 Apple Silicon 上模型建到 CPU，trainer 却选了 `mps:0`，设备不匹配让 32 个用例常年挂在 `skipif` 后面。`conftest` 里一个 `accelerator_device()` helper——返回 trainer 自己选的设备——把整个套件解放出来，32 个全部通过（+97/−127）。
+
+**autocontrib 做了什么。** 认领 issue，把三份重复的设备探测收进一个 helper，两端都验了真机——M3 Ultra 上全量 29,080 个测试、skip 数恰好减 32，4090 D 上 CUDA 路径保持不变。按 maintainer 的 review 意见迭代到 approved，随后合并。
 
 ## 试试看
 

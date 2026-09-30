@@ -57,7 +57,17 @@ Everything that faces a human — issue comments, commit messages, PR bodies —
 
 ## Does it land?
 
-The scoreboard counts only merged PRs — an open one is never called done. Right now it holds one entry, and one is the point: the quality of where a patch lands matters more than the count.
+The scoreboard counts only merged PRs — an open one is never called done. Three entries so far, and the point holds: where a patch lands matters more than the count.
+
+### kvcache-ai/sglang
+
+<sub>MERGED · [#100](https://github.com/kvcache-ai/sglang/pull/100), fixing [ktransformers#2214](https://github.com/kvcache-ai/ktransformers/issues/2214) · bug filed in one repo, fixed in its sibling</sub>
+
+[SGLang](https://github.com/kvcache-ai/sglang) is a fast serving framework for LLMs and vision-language models — here, the kvcache-ai org's fork.
+
+**What we shipped.** Under Transformers 5, GLM-4.5 MoE configs moved RoPE settings into `config.rope_parameters`, but `Glm4MoeDecoderLayer` still read the legacy top-level fields — every layer silently fell back to `rope_theta=10000`, quietly degrading long-context output. The patch resolves both fields through `get_rope_config` and adds a regression test that fails on the old code (+104/−5).
+
+**What autocontrib did.** The bug was *filed* on `ktransformers`; assessment followed the imports into this sibling repo before a line was written. Then it verified on real hardware: an RTX 4090 D ran a tiny GLM4-MoE checkpoint end-to-end, confirming `rope_theta` resolves to `1_000_000` instead of `10_000`, with rotary outputs diverging past position 4096. Same fix as upstream `sgl-project/sglang#21135` — this fork had missed it.
 
 ### Tencent-Hunyuan/UniRL
 
@@ -68,6 +78,16 @@ The scoreboard counts only merged PRs — an open one is never called done. Righ
 **What we shipped.** Three uncalled helpers deleted from the sharded-state path (+1/−34). It wasn't cosmetic: they selected tensors by key substring, so once frozen "teacher" adapters could sit beside the trainable one, they would have silently leaked teacher weights into student exports. The live paths were already adapter-aware — the dead code was a quiet footgun.
 
 **What autocontrib did.** Scouted UniRL as a repo where outside PRs actually get merged; assessed issue #514 before writing code — no in-repo callers, no competing PRs, the real paths go through `peft_merge`; built a throwaway verification harness (the repo's no-`tests/` policy meant nothing could be committed) and ran it on both Apple Silicon and CUDA; opened the PR against the project's own checklist, with the AI assistance disclosed. Merged the same day.
+
+### MakazhanAlpamys/Soup
+
+<sub>MERGED · [#1375](https://github.com/MakazhanAlpamys/Soup/pull/1375), fixing [#1355](https://github.com/MakazhanAlpamys/Soup/issues/1355) · 32 skipped cases brought back</sub>
+
+[Soup](https://github.com/MakazhanAlpamys/Soup) fine-tunes LLMs from a single YAML — its layer streaming trains an 8B model on a 4 GB laptop GPU.
+
+**What we shipped.** The streamed test builders hardcoded `cuda or cpu`, so on Apple Silicon the model landed on CPU while the trainer picked `mps:0` — a device mismatch that had parked 32 test cases behind `skipif` marks. One `accelerator_device()` helper in `conftest`, returning exactly what the trainer picks, un-skipped the whole suite; all 32 pass (+97/−127).
+
+**What autocontrib did.** Claimed the issue, consolidated three copies of the device probe into one helper, and verified both sides of the matrix on real hardware — the full suite on an M3 Ultra (29,080 tests, skip count down exactly 32) and the unchanged CUDA path on a 4090 D. Iterated through the maintainer's review to approved, then merged.
 
 ## Try it
 
