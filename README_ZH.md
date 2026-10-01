@@ -57,7 +57,7 @@ npx skills add Momoyeyu/issuekiller -g
 
 ## 真的能落地吗
 
-成绩单只数真正被合并的 PR——open 的永远不会被报成完成。目前三条，而重点不变：落在哪，比落几个重要。
+这里只记录真正被合并的 PR——open 的永远不会被报成完成。目前五条。它们是证据，不是战绩：每一条都说明那次匹配是对的——愿意 review 外部人的仓库、scope 合适的 issue、一个真心想留下这个补丁的 maintainer。
 
 ### kvcache-ai/sglang
 
@@ -71,23 +71,35 @@ npx skills add Momoyeyu/issuekiller -g
 
 ### Tencent-Hunyuan/UniRL
 
-<sub>已合并 · [#530](https://github.com/Tencent-Hunyuan/UniRL/pull/530)，修复 [#514](https://github.com/Tencent-Hunyuan/UniRL/issues/514) · 提交当天被合并</sub>
-
 [UniRL](https://github.com/Tencent-Hunyuan/UniRL) 是腾讯混元的统一多模态强化学习训练框架。
+
+<sub>已合并 · [#530](https://github.com/Tencent-Hunyuan/UniRL/pull/530)，修复 [#514](https://github.com/Tencent-Hunyuan/UniRL/issues/514) · 提交当天被合并</sub>
 
 **做了什么。** 从 sharded-state 路径删掉三个无人调用的辅助函数（+1/−34）。这不是顺手清理：这些函数按 key 子串匹配 tensor——从 #432 开始可训练模块旁边能挂冻结的 teacher adapter，谁调用了它们，就会把 teacher 权重悄悄混进 student 的导出。真正在用的路径早已是 adapter-aware 的，这段死代码留着就是个隐患。
 
 **issuekiller 做了什么。** Scout 阶段把 UniRL 识别为「外部 PR 真的会被合」的仓库；Assess 阶段在写代码之前把 #514 查到底——没有调用方、没有撞车的 PR、真实路径都走 `peft_merge`；仓库的 no-`tests/` 政策让测试无法提交，于是写了一次性验证 harness，在 Apple Silicon 和 CUDA 两台机器上跑通；最后按项目自己的 checklist 开 PR，并在正文里如实披露有 AI 参与。当天被合并。
 
+<sub>已合并 · [#536](https://github.com/Tencent-Hunyuan/UniRL/pull/536)，修复 [#533](https://github.com/Tencent-Hunyuan/UniRL/issues/533) · ratio 两端算的本来就不是同一个量</sub>
+
+**做了什么。** `CPSSDEStrategy.compute_log_prob` 只返回 `-(x − μ)²`，但 SGLang adapter 从没在 SDE 路径上设置 `rollout_log_prob_no_const`，SGLang 记录的是完整高斯项——这个差值随 σ 变化，不是常量。`old_logp_source=rollout` 时几乎所有 `cps` ratio 都被 clip；`replay` 时 drift 指标毫无意义。现在 `SDEStrategy` 声明 `log_prob_no_const`（`cps` 为 `True`，`flow`/`dance` 为 `False`），由 adapter 转发（+10/−0）。
+
+**issuekiller 做了什么。** 选了 issue 里建议的「更干净的方案」而不是显眼方案——让训练侧输出完整高斯会改变 `cps` 的 loss 缩放。用纯 CPU harness 验证（独立加载三个改动模块，不依赖 `ray`/`sglang`）：no-const 路径与 `compute_log_prob` 完全一致，旧路径精确复现 issue 里的 gap 表。进这个仓库的第二个 PR，一天内合并。
+
 ### MakazhanAlpamys/Soup
 
-<sub>已合并 · [#1375](https://github.com/MakazhanAlpamys/Soup/pull/1375)，修复 [#1355](https://github.com/MakazhanAlpamys/Soup/issues/1355) · 32 个被跳过的测试回归</sub>
-
 [Soup](https://github.com/MakazhanAlpamys/Soup) 用一个 YAML 微调 LLM——layer streaming 能在 4 GB 显存的笔记本 GPU 上训练 8B 模型。
+
+<sub>已合并 · [#1375](https://github.com/MakazhanAlpamys/Soup/pull/1375)，修复 [#1355](https://github.com/MakazhanAlpamys/Soup/issues/1355) · 32 个被跳过的测试回归</sub>
 
 **做了什么。** streamed 测试的 builder 写死了 `cuda or cpu`：在 Apple Silicon 上模型建到 CPU，trainer 却选了 `mps:0`，设备不匹配让 32 个用例常年挂在 `skipif` 后面。`conftest` 里一个 `accelerator_device()` helper——返回 trainer 自己选的设备——把整个套件解放出来，32 个全部通过（+97/−127）。
 
 **issuekiller 做了什么。** 认领 issue，把三份重复的设备探测收进一个 helper，两端都验了真机——M3 Ultra 上全量 29,080 个测试、skip 数恰好减 32，4090 D 上 CUDA 路径保持不变。按 maintainer 的 review 意见迭代到 approved，随后合并。
+
+<sub>已合并 · [#1471](https://github.com/MakazhanAlpamys/Soup/pull/1471)，修复 [#1349](https://github.com/MakazhanAlpamys/Soup/issues/1349) · 范围收窄到 review 真正要的部分</sub>
+
+**做了什么。** `reasoning` 数据模板只要求一个 "final answer"，没有任何可解析的形式，生成的行可能带着 reward 路径读不出的 gold——GRPO demo fixture 里那些解析不了的行就是这么来的。现在 prompt 写明 reward 认的标记：math 行用 `####`，logic/code 行用 `Answer:`。新测试钉死两份 fixture 逐字节一致、每条 gold 可解析（+95/−2）。
+
+**issuekiller 做了什么。** 中途收窄范围：#1371 的 variable-prefix 规则落地后，原计划改 fixture 的部分变成多余，PR 收缩成模板修复加 pin 测试——按 issue 上确认过的方案走。经历一轮 changes-requested 迭代到 approved，次日合并。
 
 ## 试试看
 

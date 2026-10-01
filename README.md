@@ -57,7 +57,7 @@ Everything that faces a human — issue comments, commit messages, PR bodies —
 
 ## Does it land?
 
-The scoreboard counts only merged PRs — an open one is never called done. Three entries so far, and the point holds: where a patch lands matters more than the count.
+Only merged PRs count here — an open one is never called done. Five entries so far. They're evidence, not score: each one means the match was right — a repo that reviews outsiders, an issue scoped to a real fix, a maintainer who wanted the patch kept.
 
 ### kvcache-ai/sglang
 
@@ -71,23 +71,35 @@ The scoreboard counts only merged PRs — an open one is never called done. Thre
 
 ### Tencent-Hunyuan/UniRL
 
-<sub>MERGED · [#530](https://github.com/Tencent-Hunyuan/UniRL/pull/530), fixing [#514](https://github.com/Tencent-Hunyuan/UniRL/issues/514) · merged the day it opened</sub>
-
 [UniRL](https://github.com/Tencent-Hunyuan/UniRL) is Tencent Hunyuan's unified framework for multimodal reinforcement learning.
+
+<sub>MERGED · [#530](https://github.com/Tencent-Hunyuan/UniRL/pull/530), fixing [#514](https://github.com/Tencent-Hunyuan/UniRL/issues/514) · merged the day it opened</sub>
 
 **What we shipped.** Three uncalled helpers deleted from the sharded-state path (+1/−34). It wasn't cosmetic: they selected tensors by key substring, so once frozen "teacher" adapters could sit beside the trainable one, they would have silently leaked teacher weights into student exports. The live paths were already adapter-aware — the dead code was a quiet footgun.
 
 **What issuekiller did.** Scouted UniRL as a repo where outside PRs actually get merged; assessed issue #514 before writing code — no in-repo callers, no competing PRs, the real paths go through `peft_merge`; built a throwaway verification harness (the repo's no-`tests/` policy meant nothing could be committed) and ran it on both Apple Silicon and CUDA; opened the PR against the project's own checklist, with the AI assistance disclosed. Merged the same day.
 
+<sub>MERGED · [#536](https://github.com/Tencent-Hunyuan/UniRL/pull/536), fixing [#533](https://github.com/Tencent-Hunyuan/UniRL/issues/533) · the two sides of the ratio were scoring different quantities</sub>
+
+**What we shipped.** `CPSSDEStrategy.compute_log_prob` returns only `-(x − μ)²`, but the SGLang adapter never set `rollout_log_prob_no_const` on the SDE path, so SGLang recorded the full Gaussian — a σ-dependent gap, not a constant. With `old_logp_source=rollout` almost every `cps` ratio clipped; with `replay` the drift metric was meaningless. `SDEStrategy` now declares `log_prob_no_const` (`True` for `cps`, `False` for `flow`/`dance`) and the adapter forwards it (+10/−0).
+
+**What issuekiller did.** Took the "cleaner option" the issue itself suggested rather than the obvious one — emitting the full Gaussian on the train side would have changed `cps` loss scaling. Verified with a CPU-only harness that loads the three touched modules standalone (no `ray`, no `sglang`): the no-const path now matches `compute_log_prob` exactly, while the old path reproduces the issue's gap table. Second PR into this repo, merged inside a day.
+
 ### MakazhanAlpamys/Soup
 
-<sub>MERGED · [#1375](https://github.com/MakazhanAlpamys/Soup/pull/1375), fixing [#1355](https://github.com/MakazhanAlpamys/Soup/issues/1355) · 32 skipped cases brought back</sub>
-
 [Soup](https://github.com/MakazhanAlpamys/Soup) fine-tunes LLMs from a single YAML — its layer streaming trains an 8B model on a 4 GB laptop GPU.
+
+<sub>MERGED · [#1375](https://github.com/MakazhanAlpamys/Soup/pull/1375), fixing [#1355](https://github.com/MakazhanAlpamys/Soup/issues/1355) · 32 skipped cases brought back</sub>
 
 **What we shipped.** The streamed test builders hardcoded `cuda or cpu`, so on Apple Silicon the model landed on CPU while the trainer picked `mps:0` — a device mismatch that had parked 32 test cases behind `skipif` marks. One `accelerator_device()` helper in `conftest`, returning exactly what the trainer picks, un-skipped the whole suite; all 32 pass (+97/−127).
 
 **What issuekiller did.** Claimed the issue, consolidated three copies of the device probe into one helper, and verified both sides of the matrix on real hardware — the full suite on an M3 Ultra (29,080 tests, skip count down exactly 32) and the unchanged CUDA path on a 4090 D. Iterated through the maintainer's review to approved, then merged.
+
+<sub>MERGED · [#1471](https://github.com/MakazhanAlpamys/Soup/pull/1471), fixing [#1349](https://github.com/MakazhanAlpamys/Soup/issues/1349) · scope narrowed to what review actually wanted</sub>
+
+**What we shipped.** The `reasoning` data template asked for a "final answer" with no parseable form, so generated rows could ship golds the reward path can't read — which is how the GRPO demo fixture's unparsed rows happened. The prompt now names the markers the rewards parse: `####` for math rows, `Answer:` for logic/code. A new test pins the two fixture copies byte-identical and every gold parseable (+95/−2).
+
+**What issuekiller did.** Re-scoped mid-flight: once #1371's variable-prefix rule landed, the planned fixture edit was redundant, so the PR shrank to the template fix plus the pin — per the plan confirmed on the issue. Iterated through a changes-requested review to approved; merged the next day.
 
 ## Try it
 
