@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Fetch GitHub Trending and filter repositories by star ceiling.
+"""Fetch GitHub Trending and filter repositories by star range.
 
 Pure stdlib. Prints a table of full_name, language, stars, and today's/weekly
 gain. The trending page is server-rendered HTML; the parser targets the
 <article class="Box-row"> blocks and tolerates missing fields.
 
 Usage:
-    trending.py [--weekly] [--lang LANG] [--max-stars N] [--limit N]
+    trending.py [--weekly] [--lang LANG] [--min-stars N] [--max-stars N] [--limit N]
 """
 
 from __future__ import annotations
@@ -99,6 +99,13 @@ def parse_trending(page: str) -> list[dict]:
     return out
 
 
+def in_star_range(stars: int | None, lo: int, hi: int) -> bool:
+    """Inclusive range; unknown star counts pass through rather than drop."""
+    if stars is None:
+        return True
+    return lo <= stars <= hi
+
+
 def fetch(lang: str | None = None, weekly: bool = False) -> str:
     url = TRENDING_URL + (f"/{lang}" if lang else "")
     url += "?since=weekly" if weekly else "?since=daily"
@@ -111,7 +118,10 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--weekly", action="store_true", help="weekly instead of daily")
     ap.add_argument("--lang", help="language slug, e.g. python")
-    ap.add_argument("--max-stars", type=int, default=10000)
+    ap.add_argument("--min-stars", type=int, default=0,
+                    help="lower bound of the star range, inclusive (default 0)")
+    ap.add_argument("--max-stars", type=int, default=10000,
+                    help="upper bound of the star range, inclusive (default 10000)")
     ap.add_argument("--limit", type=int, default=25)
     args = ap.parse_args(argv)
 
@@ -121,12 +131,13 @@ def main(argv: list[str] | None = None) -> int:
         print(f"fetch failed: {e}", file=sys.stderr)
         return 1
 
-    repos = [r for r in parse_trending(page) if (r["stars"] or 0) < args.max_stars]
+    repos = [r for r in parse_trending(page)
+             if in_star_range(r["stars"], args.min_stars, args.max_stars)]
     repos.sort(key=lambda r: -(r["stars"] or 0))
     for r in repos[: args.limit]:
         stars = r["stars"] if r["stars"] is not None else "?"
         print(f"{r['name']:<48} {r['lang'] or '-':<12} {stars:>7}  {r['desc'][:80]}")
-    print(f"\n{len(repos)} repos under {args.max_stars} stars")
+    print(f"\n{len(repos)} repos in {args.min_stars}-{args.max_stars} stars")
     return 0
 
 

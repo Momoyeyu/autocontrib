@@ -2,31 +2,31 @@
 
 Read when judging whether a candidate repository actually accepts external work, and which issues are worth claiming. Assess ends with the human picking issues — not with implementations.
 
-## Read the rules files first
+## Collect the digest first
 
-Before touching code, read `CONTRIBUTING.md`, `AGENTS.md`, the PR template, and the README. Extract and record:
+```bash
+python3 landable/scripts/probe.py --repo OWNER/NAME
+```
 
-- **Base branch** for PRs (e.g. `develop`, not always `main`).
+One GraphQL call returns the mechanical half of assessment: repo meta (stars, default branch, archived, last push), rules-file presence with extracted hint lines (DCO, signing, test gates), the merged-PR author mix, insider-reply share on recent closed issues, and a triage row per open issue — labels, age, comment count, assignee, timeline-linked PRs, soft-claim phrases — each with a `free`/`check`/`taken` verdict plus a body excerpt for the survivors.
+
+Read the digest, not the raw tracker. Fetch more only where the digest is thin: `--dump-rules` for the full CONTRIBUTING text, `gh issue view` for a finalist's full body, a deeper timeline page if a hot issue has more events than the probe sampled. `--json` for programmatic reading.
+
+From it, record:
+
+- **Base branch** for PRs (default branch plus any hint line — e.g. `develop`, not always `main`).
 - **Commit requirements** — DCO sign-off (`-s`), cryptographic signing (`-S`), conventional-commit style.
 - **Ship bar** — the documented test/lint gate (`make all`, `uv run pytest`, pre-commit).
 - **Changelog** — whether the repo maintains one and expects entries.
 - **Plugin/extension contracts** — documented interfaces beat reading tea leaves.
 
-## Probe acceptance odds
-
-A project's merge history tells you whether PRs from strangers land:
-
-```bash
-python3 landable/scripts/acceptance.py --repo OWNER/NAME
-```
-
-It samples recent merged PRs and reports the share by `authorAssociation`. Read it as:
+Acceptance reads as:
 
 - **NONE / CONTRIBUTOR merges present** → genuinely open to outsiders.
 - **All MEMBER / OWNER** → closed or de-facto single-author; deprioritize.
-- **Very few PRs at all** → look at issue responsiveness instead.
+- **Very few PRs at all** → lean on the responsiveness line instead.
 
-Also check whether external contributors' issues/comments get maintainer replies, and whether anyone outside the org has claimed issues recently (fast claiming means good issues disappear quickly — note it).
+Fast claiming (many `taken` rows, quick turnover) means good issues disappear quickly — note it for the user.
 
 ## Triage issues — three hard filters
 
@@ -39,13 +39,11 @@ An issue only enters the shortlist if it passes **all three**. These are gates, 
 - Skip: Q&A threads, usage questions, meta tasks (verify-list, docs wishes), and feature requests that read as self-promotion for the author's own tool/spec — these close as "thanks" or rot, not merge.
 - Bonus signals: **root-caused already** (a maintainer comment naming the faulty file/line turns research risk into implementation work); **contract-specified** (the maintainer wrote the expected interface or test shape).
 
-### 2. Unclaimed — check all three channels
+### 2. Unclaimed — the digest checks the channels
 
-Silent threads lie. Before calling an issue free:
+`probe.py` already pulls the three signals: assignees, timeline cross-references (a linked PR counts as claimed **whether open or closed** — closed-unmerged still tells you someone tried and how it went), and claim phrasing in recent comments (`soft-claim:<user>`). Fork commit references surface as `check`.
 
-- **Timeline cross-references**: `gh api repos/{owner}/{repo}/issues/{n}/timeline` — a cross-referenced PR counts as claimed **whether open or closed** (closed-unmerged still tells you someone tried and how it went). People open PRs without ever commenting on the issue.
-- **Search**: `gh pr list -R owner/repo --search "#N" --state all` as backup.
-- **Soft claims in the body/comments**: an issue author saying "we have a fix on a fork, checking the approach before PR" is a claim — don't race it. Likewise a maintainer assigning it to themselves or naming who'll do it.
+Trust but verify on the shortlist: the probe samples the latest timeline events, so a busy issue can have older cross-references it didn't see. Before claiming a `free` finalist, one `gh api repos/{owner}/{repo}/issues/{n}/timeline` pass confirms it. An issue author saying "we have a fix on a fork, checking the approach before PR" is a claim — don't race it. Likewise a maintainer assigning it to themselves or naming who'll do it.
 
 ### 3. Feasible on *this* user's setup
 

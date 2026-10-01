@@ -25,7 +25,7 @@ npx skills add Momoyeyu/landable -g
 
 Six stages, but you only ever make **two decisions**:
 
-- **Pick what to work on.** The agent scouts GitHub Trending under your star ceiling, probes each repo's real openness — who actually gets merged, whether issues get maintainer replies, whether the fix even lives in that repo — and comes back with a ranked menu. You choose.
+- **Pick what to work on.** The agent scouts GitHub Trending within your star range, probes each repo's real openness — who actually gets merged, whether issues get maintainer replies, whether the fix even lives in that repo — and comes back with a ranked menu. You choose.
 - **Approve what gets published.** The agent forks, claims, implements, tests, and writes the PR text — then stops. It hands you a patch list: what changed, what ran, what's missing. You approve, adjust, or drop each one.
 
 Between those two gates it's autonomous. After the second, it pushes, opens the PR on the right base branch, and babysits CI until the maintainer takes over.
@@ -47,7 +47,7 @@ And on the way out: the repo's own rules win. Base branch, sign-off, cryptograph
 
 | Moment | Artifact |
 |---|---|
-| After Scout | Ranked candidate table — stars, language, why it fits *your* profile, plus a flagged watch list just over the ceiling |
+| After Scout | Ranked candidate table — stars, language, why it fits *your* profile, plus a flagged watch list just over the range |
 | After Assess | Issue menu per repo — acceptance evidence, effort estimate, honest confidence the agent can finish end-to-end |
 | After Implement | Patch list — per change: branch, diff, tests actually run with results, known limitations |
 | After Ship | PR table — URL, base/head, SHA, and CI status reported honestly: *no CI* and *waiting on maintainer approval* are not the same thing |
@@ -121,11 +121,12 @@ The first request builds an interest card and a ranked table, then asks which re
 
 ## Helper scripts
 
-Two small stdlib-only tools ship with the skill; the pipeline works fine without them:
+Three small stdlib-only tools ship with the skill; the pipeline works fine without them:
 
 ```bash
-python3 landable/scripts/trending.py --weekly --max-stars 10000   # Trending under a star ceiling
-python3 landable/scripts/acceptance.py --repo OWNER/NAME          # external-PR acceptance probe
+python3 landable/scripts/trending.py --weekly --min-stars 1000 --max-stars 5000   # Trending in a star range
+python3 landable/scripts/probe.py --repo OWNER/NAME                              # repo digest: rules, acceptance, issue triage
+python3 landable/scripts/acceptance.py --repo OWNER/NAME                          # standalone external-merge probe
 ```
 
 ## Skill structure
@@ -138,6 +139,7 @@ python3 landable/scripts/acceptance.py --repo OWNER/NAME          # external-PR 
 | [`references/implement.md`](landable/references/implement.md) | Forking, claiming, coding, committing |
 | [`references/ship.md`](landable/references/ship.md) | Pushing, PRs, tracking CI |
 | [`scripts/trending.py`](landable/scripts/trending.py) | Run, not read |
+| [`scripts/probe.py`](landable/scripts/probe.py) | Run, not read |
 | [`scripts/acceptance.py`](landable/scripts/acceptance.py) | Run, not read |
 
 Progressive disclosure: read the current stage's reference only.

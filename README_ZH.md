@@ -25,7 +25,7 @@ npx skills add Momoyeyu/landable -g
 
 六个阶段，但你只需要做**两个决定**：
 
-- **决定做什么。** Agent 按你的星数上限扫 GitHub Trending，再逐个探测仓库的真实开放度——外部人的 PR 到底有没有被 merge 过、issue 有没有人回、病根在不在这个仓库——然后带回一份排序好的菜单。你来挑。
+- **决定做什么。** Agent 按你的星数区间扫 GitHub Trending，再逐个探测仓库的真实开放度——外部人的 PR 到底有没有被 merge 过、issue 有没有人回、病根在不在这个仓库——然后带回一份排序好的菜单。你来挑。
 - **决定发什么。** Agent fork、认领、实现、写测试、拟 PR 文案——然后停下。它交给你一份补丁清单：改了什么、跑了什么、还缺什么。你逐个批准、打回、或者放弃。
 
 两道闸门之间它是自主的；第二道闸门之后，它推送、按正确的 base 开 PR、盯着 CI 直到 maintainer 接手。
@@ -47,7 +47,7 @@ npx skills add Momoyeyu/landable -g
 
 | 时机 | 产物 |
 |---|---|
-| Scout 之后 | 候选排序表——星数、语言、为什么适合你的画像，外加刚好超上限的观察名单 |
+| Scout 之后 | 候选排序表——星数、语言、为什么适合你的画像，外加刚好超出区间上限的观察名单 |
 | Assess 之后 | 各仓库 issue 菜单——接受度证据、工作量估计、agent 能否端到端做完的诚实把握 |
 | Implement 之后 | 补丁清单——每个改动：分支、diff、实际跑过的测试和结果、已知限制 |
 | Ship 之后 | PR 表——URL、base/head、SHA，以及诚实上报的 CI 状态：「没有 CI」和「等 maintainer 批准」是两回事 |
@@ -121,11 +121,12 @@ npx skills add Momoyeyu/landable -g
 
 ## 辅助脚本
 
-skill 自带两个零依赖小工具，不用它们流程也照样跑：
+skill 自带三个零依赖小工具，不用它们流程也照样跑：
 
 ```bash
-python3 landable/scripts/trending.py --weekly --max-stars 10000   # Trending 按星数过滤
-python3 landable/scripts/acceptance.py --repo OWNER/NAME          # 外部 PR 接受度探测
+python3 landable/scripts/trending.py --weekly --min-stars 1000 --max-stars 5000   # Trending 按星数区间过滤
+python3 landable/scripts/probe.py --repo OWNER/NAME                              # 仓库摘要：规则、接受度、issue 分诊
+python3 landable/scripts/acceptance.py --repo OWNER/NAME                          # 独立的外部 PR 接受度探测
 ```
 
 ## Skill 结构
@@ -138,6 +139,7 @@ python3 landable/scripts/acceptance.py --repo OWNER/NAME          # 外部 PR �
 | [`references/implement.md`](landable/references/implement.md) | fork、认领、编码、提交 |
 | [`references/ship.md`](landable/references/ship.md) | 推送、开 PR、跟踪 CI |
 | [`scripts/trending.py`](landable/scripts/trending.py) | 运行而非阅读 |
+| [`scripts/probe.py`](landable/scripts/probe.py) | 运行而非阅读 |
 | [`scripts/acceptance.py`](landable/scripts/acceptance.py) | 运行而非阅读 |
 
 渐进式披露：只读当前阶段的 reference。

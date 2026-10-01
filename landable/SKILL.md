@@ -18,7 +18,7 @@ Trending rank is not contribution fitness. A promising project can still be a ba
 | Stage | Produces | Human decides |
 |---|---|---|
 | **Profile** | interest card: domains, languages, layer (kernel/infra/app); capability card: available hardware/compute | source of interests + resource constraints |
-| **Scout** | ranked candidates under the star ceiling | which candidates to assess |
+| **Scout** | ranked candidates in the star range | which candidates to assess |
 | **Assess** | per-repo acceptance evidence + feasible issues | which issues to pursue |
 | **Implement** | local branches: fix + regression test + draft PR text | approve / adjust each patch |
 | **Ship** | pushed branches, PRs on the correct base branch | — |
@@ -49,12 +49,14 @@ Do not preload the directory. Follow the current stage only.
 
 `scripts/` holds small stdlib helpers; none are required for the pipeline to work.
 
-- `scripts/trending.py` — fetch GitHub Trending (daily/weekly), filter by star ceiling, print a ranked table.
-- `scripts/acceptance.py` — sample a repo's recent merged PRs via `gh` and report the external-contributor share.
+- `scripts/trending.py` — fetch GitHub Trending (daily/weekly), filter by star range, print a ranked table.
+- `scripts/probe.py` — one GraphQL call per repo: rules hints, acceptance mix, issue responsiveness, and the claimed/free triage table.
+- `scripts/acceptance.py` — standalone version of probe's merged-PR author-association check.
 
 ## Defaults
 
-- Star ceiling **10,000**; window **daily + weekly** trending.
+- Star range **0–10,000** by default — Scout offers preset bands (0–1k / 1k–5k / 5k–10k / all / custom); window **daily + weekly** trending.
+- Interests are per-request; a saved `~/.config/landable/profile.json` is offered as an option, never assumed.
 - Issues already claimed by others are skipped, not raced.
 - Security-model redesigns are proposed to maintainers, never implemented blind.
 - Every repo's own rules win: base branch, sign-off/signing, changelog, PR template, ship bar.
