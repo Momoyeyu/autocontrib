@@ -1,17 +1,17 @@
 ---
-name: issuekiller
+name: landable
 description: An interest-driven open-source contribution pipeline. Profile the user's technical interests, scout GitHub Trending for under-the-radar repositories, assess real contribution openings and acceptance odds, then claim, implement, review, and ship PRs — with the human deciding what to pursue and what to publish.
 ---
 
-# issuekiller
+# landable
 
 Find repositories worth joining early, turn approachable issues into merged PRs, and keep the human in control of the two decisions that matter: **what to work on** and **what to publish**.
 
 Works with agents that load `SKILL.md`, the GitHub CLI (`gh`), and a git checkout per target repository.
 
-## Why issuekiller exists
+## Why landable exists
 
-Trending rank is not contribution fitness. A promising project can still be a bad target: owner-only merge history, hardened review gates, no scoped issues, or a stack mismatch. issuekiller exists to **spend effort only where a PR can plausibly land** — and to keep contribution artifacts (comments, commits, PR text) indistinguishable from a competent human contributor's.
+Trending rank is not contribution fitness. A promising project can still be a bad fit: owner-only merge history, hardened review gates, no scoped issues, or a stack mismatch. landable exists to **spend effort only where a PR can plausibly land** — and to keep contribution artifacts (comments, commits, PR text) indistinguishable from a competent human contributor's.
 
 ## Profile → Scout → Assess → Implement → Ship → Track
 

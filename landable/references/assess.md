@@ -17,7 +17,7 @@ Before touching code, read `CONTRIBUTING.md`, `AGENTS.md`, the PR template, and 
 A project's merge history tells you whether PRs from strangers land:
 
 ```bash
-python3 issuekiller/scripts/acceptance.py --repo OWNER/NAME
+python3 landable/scripts/acceptance.py --repo OWNER/NAME
 ```
 
 It samples recent merged PRs and reports the share by `authorAssociation`. Read it as:

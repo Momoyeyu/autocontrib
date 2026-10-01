@@ -102,7 +102,7 @@ def parse_trending(page: str) -> list[dict]:
 def fetch(lang: str | None = None, weekly: bool = False) -> str:
     url = TRENDING_URL + (f"/{lang}" if lang else "")
     url += "?since=weekly" if weekly else "?since=daily"
-    req = urllib.request.Request(url, headers={"User-Agent": "issuekiller/1.0"})
+    req = urllib.request.Request(url, headers={"User-Agent": "landable/1.0"})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return resp.read().decode("utf-8", "replace")
 

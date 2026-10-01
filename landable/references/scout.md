@@ -15,8 +15,8 @@ If the user supplies no source, ask once for a link or a short interest list plu
 Fetch **both** daily and weekly GitHub Trending (`https://github.com/trending` and `?since=weekly`), optionally per-language. `scripts/trending.py` does this and filters by star ceiling:
 
 ```bash
-python3 issuekiller/scripts/trending.py --weekly --max-stars 10000
-python3 issuekiller/scripts/trending.py --lang python
+python3 landable/scripts/trending.py --weekly --max-stars 10000
+python3 landable/scripts/trending.py --lang python
 ```
 
 If the fetch fails (network, markup drift), retry once; then fall back to `gh search repos "created:>YYYY-MM-DD" --sort stars` over recently-active repos and say so.

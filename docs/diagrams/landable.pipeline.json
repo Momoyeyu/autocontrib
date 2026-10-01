@@ -2,8 +2,8 @@
   "schema_version": 1,
   "diagram_type": "architecture",
   "meta": {
-    "title": "issuekiller · 开源贡献流水线",
-    "subtitle": "两道人工闸门，一段自主循环",
+    "title": "landable · Contribution pipeline",
+    "subtitle": "two human gates, one autonomous loop",
     "locale": "en",
     "visual_preset": "editorial",
     "quality_profile": "showcase",
@@ -14,7 +14,7 @@
     "legend": {
       "mode": "hidden"
     },
-    "output": "issuekiller.pipeline.zh.html"
+    "output": "landable.pipeline.html"
   },
   "layout": {
     "mode": "grid",
@@ -38,8 +38,8 @@
       "row": 0,
       "col": 0,
       "type": "frontend",
-      "label": "兴趣画像",
-      "sublabel": "领域 · 语言 · 层次"
+      "label": "Interest profile",
+      "sublabel": "domains · langs · layer"
     },
     {
       "id": "scout",
@@ -50,7 +50,7 @@
       "row": 0,
       "col": 1,
       "type": "backend",
-      "label": "扫描 Trending",
+      "label": "Scan trending",
       "sublabel": "GitHub Trending · <10k★"
     },
     {
@@ -62,8 +62,8 @@
       "row": 0,
       "col": 2,
       "type": "backend",
-      "label": "评估接受度",
-      "sublabel": "merged PR · CI · issue"
+      "label": "Assess acceptance",
+      "sublabel": "merged PRs · CI · issues"
     },
     {
       "id": "menu",
@@ -74,8 +74,8 @@
       "row": 0,
       "col": 3,
       "type": "database",
-      "label": "issue 菜单",
-      "sublabel": "工作量 × 把握"
+      "label": "Issue menu",
+      "sublabel": "effort × confidence"
     },
     {
       "id": "gate1",
@@ -86,8 +86,8 @@
       "row": 0,
       "col": 4,
       "type": "security",
-      "label": "选目标?",
-      "sublabel": "仓库 · issue"
+      "label": "Pick targets?",
+      "sublabel": "repos · issues"
     },
     {
       "id": "implement",
@@ -98,8 +98,8 @@
       "row": 1,
       "col": 4,
       "type": "backend",
-      "label": "动手实现",
-      "sublabel": "fork · 认领 · 根因"
+      "label": "Implement",
+      "sublabel": "fork · claim · root cause"
     },
     {
       "id": "verify",
@@ -110,8 +110,8 @@
       "row": 1,
       "col": 3,
       "type": "backend",
-      "label": "测试 + PR 草稿",
-      "sublabel": "仓库门禁 · PR 文案"
+      "label": "Test + draft PR",
+      "sublabel": "repo's gates · PR text"
     },
     {
       "id": "gate2",
@@ -122,8 +122,8 @@
       "row": 1,
       "col": 2,
       "type": "security",
-      "label": "批准补丁?",
-      "sublabel": "批准 · 调整 · 放弃"
+      "label": "Approve patches?",
+      "sublabel": "approve · adjust · drop"
     },
     {
       "id": "publish",
@@ -134,8 +134,8 @@
       "row": 1,
       "col": 1,
       "type": "backend",
-      "label": "推送 + 开 PR",
-      "sublabel": "干净 commit · 正确 base"
+      "label": "Push + open PR",
+      "sublabel": "clean commits · right base"
     },
     {
       "id": "track",
@@ -146,14 +146,14 @@
       "row": 1,
       "col": 0,
       "type": "frontend",
-      "label": "跟踪 + 交接",
-      "sublabel": "CI · review · 汇报"
+      "label": "Track + hand off",
+      "sublabel": "CI · review · report"
     }
   ],
   "boundaries": [
     {
       "kind": "region",
-      "label": "01  侦察",
+      "label": "01  SCOUT",
       "wraps": [
         "profile",
         "scout",
@@ -164,7 +164,7 @@
     },
     {
       "kind": "region",
-      "label": "02  闸门",
+      "label": "02  GATE",
       "wraps": [
         "gate1"
       ],
@@ -172,7 +172,7 @@
     },
     {
       "kind": "region",
-      "label": "03  构建",
+      "label": "03  BUILD",
       "wraps": [
         "implement",
         "verify"
@@ -181,7 +181,7 @@
     },
     {
       "kind": "region",
-      "label": "04  闸门",
+      "label": "04  GATE",
       "wraps": [
         "gate2"
       ],
@@ -189,7 +189,7 @@
     },
     {
       "kind": "region",
-      "label": "05  发布",
+      "label": "05  SHIP",
       "wraps": [
         "publish",
         "track"
@@ -222,7 +222,7 @@
       "id": "revise",
       "from": "gate1",
       "to": "scout",
-      "label": "改选",
+      "label": "revise",
       "variant": "dashed",
       "fromSide": "top",
       "toSide": "top",
@@ -256,7 +256,7 @@
       "id": "adjust",
       "from": "gate2",
       "to": "implement",
-      "label": "调整",
+      "label": "adjust",
       "variant": "dashed",
       "fromSide": "bottom",
       "toSide": "bottom"
@@ -265,7 +265,7 @@
       "id": "g2-p",
       "from": "gate2",
       "to": "publish",
-      "label": "批准",
+      "label": "approved",
       "variant": "emphasis"
     },
     {

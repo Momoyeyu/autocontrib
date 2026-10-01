@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="generator" content="archify 2.17.0-dev.1">
   <meta name="archify-reader-contract" content="declared-wide-v1">
-  <title>issuekiller · 开源贡献流水线 Diagram</title>
+  <title>landable · Contribution pipeline Diagram</title>
   <script>
     // Resolve the theme before first paint so light-preference users don't
     // see a dark flash. The toolbar script below re-applies with UI state.
@@ -5193,9 +5193,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
            data-preset-badge-blueprint="BLUEPRINT / REV 01"
            data-preset-badge-editorial="EDITORIAL / FIELD NOTE">
         <div class="pulse-dot"></div>
-        <h1>issuekiller · 开源贡献流水线</h1>
+        <h1>landable · Contribution pipeline</h1>
       </div>
-      <p class="subtitle">两道人工闸门，一段自主循环</p>
+      <p class="subtitle">two human gates, one autonomous loop</p>
     </div>
 
     <script id="archify-guided-views-data" type="application/json">[]</script>
@@ -5244,8 +5244,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     <div class="diagram-container" data-detail-level="read"
          data-preset-badge-editorial-plate="ARCHIFY / PLATE 04">
       <svg viewBox="0 0 1020 430" role="img" lang="en" aria-labelledby="archify-diagram-title archify-diagram-description" data-preset="editorial" data-quality-profile="showcase" data-diagram-type="architecture" data-reader-fit="authored-height">
-        <title id="archify-diagram-title">issuekiller · 开源贡献流水线</title>
-        <desc id="archify-diagram-description">两道人工闸门，一段自主循环</desc>
+        <title id="archify-diagram-title">landable · Contribution pipeline</title>
+        <desc id="archify-diagram-description">two human gates, one autonomous loop</desc>
         <!-- Definitions -->
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
@@ -5269,15 +5269,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <rect width="100%" height="100%" fill="url(#grid)" />
 
         <!-- Boundaries (behind everything) -->
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="01  侦察" x="20" y="86" width="780" height="112" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="0" data-composition-frame-label="01  SCOUT" x="20" y="86" width="780" height="112" rx="12" class="c-region" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="1" data-composition-frame-label="02  闸门" x="820" y="86" width="180" height="112" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="1" data-composition-frame-label="02  GATE" x="820" y="86" width="180" height="112" rx="12" class="c-region" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="2" data-composition-frame-label="03  构建" x="620" y="264" width="380" height="112" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="2" data-composition-frame-label="03  BUILD" x="620" y="264" width="380" height="112" rx="12" class="c-region" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="3" data-composition-frame-label="04  闸门" x="420" y="264" width="180" height="112" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="3" data-composition-frame-label="04  GATE" x="420" y="264" width="180" height="112" rx="12" class="c-region" stroke-width="1"/>
 
-        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="4" data-composition-frame-label="05  发布" x="20" y="264" width="380" height="112" rx="12" class="c-region" stroke-width="1"/>
+        <rect data-graph-role="structural-frame" data-composition-frame-kind="region" data-composition-frame-id="4" data-composition-frame-label="05  SHIP" x="20" y="264" width="380" height="112" rx="12" class="c-region" stroke-width="1"/>
 
         <!-- Connection paths (before components for correct z-order) -->
         <g data-graph-role="automatic-crossover" style="--step:0">
@@ -5296,7 +5296,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <path data-graph-role="automatic-crossover-underlay" d="M 780 144 L 840 144" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
           <path data-edge-from="menu" data-edge-to="gate1" data-edge-key="3" data-edge-id="m-g1" data-composition-points="780,144;840,144" data-composition-crossover="halo" data-composition-independent="true" d="M 780 144 L 840 144" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
         </g>
-        <path data-edge-from="gate1" data-edge-to="scout" data-edge-label="改选" data-edge-key="4" data-edge-id="revise" data-composition-points="910,110;910,74;310,74;310,110" d="M 910 110 L 910 82 Q 910 74 902 74 L 318 74 Q 310 74 310 82 L 310 110" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+        <path data-edge-from="gate1" data-edge-to="scout" data-edge-label="revise" data-edge-key="4" data-edge-id="revise" data-composition-points="910,110;910,74;310,74;310,110" d="M 910 110 L 910 82 Q 910 74 902 74 L 318 74 Q 310 74 310 82 L 310 110" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         <g data-graph-role="automatic-crossover" style="--step:5">
           <path data-graph-role="automatic-crossover-underlay" d="M 910 178 L 910 288" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
           <path data-edge-from="gate1" data-edge-to="implement" data-edge-key="5" data-edge-id="g1-i" data-composition-points="910,178;910,288" data-composition-crossover="halo" data-composition-independent="true" d="M 910 178 L 910 288" class="a-default" stroke-width="1.5" marker-end="url(#arrowhead)"/>
@@ -5311,11 +5311,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </g>
         <g data-graph-role="automatic-crossover" style="--step:8">
           <path data-graph-role="automatic-crossover-underlay" d="M 510 356 L 510 372 Q 510 380 518 380 L 902 380 Q 910 380 910 372 L 910 356" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="gate2" data-edge-to="implement" data-edge-label="调整" data-edge-key="8" data-edge-id="adjust" data-composition-points="510,356;510,380;910,380;910,356" data-composition-crossover="halo" data-composition-independent="true" d="M 510 356 L 510 372 Q 510 380 518 380 L 902 380 Q 910 380 910 372 L 910 356" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
+          <path data-edge-from="gate2" data-edge-to="implement" data-edge-label="adjust" data-edge-key="8" data-edge-id="adjust" data-composition-points="510,356;510,380;910,380;910,356" data-composition-crossover="halo" data-composition-independent="true" d="M 510 356 L 510 372 Q 510 380 518 380 L 902 380 Q 910 380 910 372 L 910 356" class="a-dashed" stroke-width="1.5" marker-end="url(#arrowhead-dashed)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:9">
           <path data-graph-role="automatic-crossover-underlay" d="M 440 322 L 380 322" fill="none" stroke="var(--mask)" stroke-width="5.8" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
-          <path data-edge-from="gate2" data-edge-to="publish" data-edge-label="批准" data-edge-key="9" data-edge-id="g2-p" data-composition-points="440,322;380,322" data-composition-crossover="halo" data-composition-independent="true" d="M 440 322 L 380 322" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
+          <path data-edge-from="gate2" data-edge-to="publish" data-edge-label="approved" data-edge-key="9" data-edge-id="g2-p" data-composition-points="440,322;380,322" data-composition-crossover="halo" data-composition-independent="true" d="M 440 322 L 380 322" class="a-emphasis" stroke-width="1.8" marker-end="url(#arrowhead-emphasis)"/>
         </g>
         <g data-graph-role="automatic-crossover" style="--step:10">
           <path data-graph-role="automatic-crossover-underlay" d="M 240 322 L 180 322" fill="none" stroke="var(--mask)" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none"/>
@@ -5323,8 +5323,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </g>
 
         <!-- Components -->
-        <g id="node-profile" data-node-id="profile" data-node-label="兴趣画像" tabindex="0" role="button" aria-label="Focus 兴趣画像, 领域 · 语言 · 层次, 01  侦察" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="领域 · 语言 · 层次" data-node-context="01  侦察">
-          <title>兴趣画像 · 领域 · 语言 · 层次 · 01  侦察</title>
+        <g id="node-profile" data-node-id="profile" data-node-label="Interest profile" tabindex="0" role="button" aria-label="Focus Interest profile, domains · langs · layer, 01  SCOUT" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="domains · langs · layer" data-node-context="01  SCOUT">
+          <title>Interest profile · domains · langs · layer · 01  SCOUT</title>
           <rect x="40" y="110" width="140" height="68" rx="6" class="c-mask"/>
           <rect x="40" y="110" width="140" height="68" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(46 116) scale(0.6875)">
@@ -5333,103 +5333,103 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="110" y="142" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">兴趣画像</text>
-        <text data-detail="context" x="110" y="158" class="t-muted" font-size="9" text-anchor="middle">领域 · 语言 · 层次</text>
+          <text data-node-label="" data-detail-anchor="" x="110" y="142" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Interest profile</text>
+        <text data-detail="context" x="110" y="158" class="t-muted" font-size="9" text-anchor="middle">domains · langs · layer</text>
         </g>
 
-        <g id="node-scout" data-node-id="scout" data-node-label="扫描 Trending" tabindex="0" role="button" aria-label="Focus 扫描 Trending, GitHub Trending · &lt;10k★, 01  侦察" aria-pressed="false" data-node-kind="backend" data-node-sublabel="GitHub Trending · &lt;10k★" data-node-context="01  侦察">
-          <title>扫描 Trending · GitHub Trending · &lt;10k★ · 01  侦察</title>
+        <g id="node-scout" data-node-id="scout" data-node-label="Scan trending" tabindex="0" role="button" aria-label="Focus Scan trending, GitHub Trending · &lt;10k★, 01  SCOUT" aria-pressed="false" data-node-kind="backend" data-node-sublabel="GitHub Trending · &lt;10k★" data-node-context="01  SCOUT">
+          <title>Scan trending · GitHub Trending · &lt;10k★ · 01  SCOUT</title>
           <rect x="240" y="110" width="140" height="68" rx="6" class="c-mask"/>
           <rect x="240" y="110" width="140" height="68" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(246 116) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="310" y="142" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">扫描 Trending</text>
+          <text data-node-label="" data-detail-anchor="" x="310" y="142" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Scan trending</text>
         <text data-detail="context" x="310" y="158" class="t-muted" font-size="9" text-anchor="middle">GitHub Trending · &lt;10k★</text>
         </g>
 
-        <g id="node-assess" data-node-id="assess" data-node-label="评估接受度" tabindex="0" role="button" aria-label="Focus 评估接受度, merged PR · CI · issue, 01  侦察" aria-pressed="false" data-node-kind="backend" data-node-sublabel="merged PR · CI · issue" data-node-context="01  侦察">
-          <title>评估接受度 · merged PR · CI · issue · 01  侦察</title>
+        <g id="node-assess" data-node-id="assess" data-node-label="Assess acceptance" tabindex="0" role="button" aria-label="Focus Assess acceptance, merged PRs · CI · issues, 01  SCOUT" aria-pressed="false" data-node-kind="backend" data-node-sublabel="merged PRs · CI · issues" data-node-context="01  SCOUT">
+          <title>Assess acceptance · merged PRs · CI · issues · 01  SCOUT</title>
           <rect x="440" y="110" width="140" height="68" rx="6" class="c-mask"/>
           <rect x="440" y="110" width="140" height="68" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(446 116) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="510" y="142" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">评估接受度</text>
-        <text data-detail="context" x="510" y="158" class="t-muted" font-size="9" text-anchor="middle">merged PR · CI · issue</text>
+          <text data-node-label="" data-detail-anchor="" x="510" y="142" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Assess acceptance</text>
+        <text data-detail="context" x="510" y="158" class="t-muted" font-size="9" text-anchor="middle">merged PRs · CI · issues</text>
         </g>
 
-        <g id="node-menu" data-node-id="menu" data-node-label="issue 菜单" tabindex="0" role="button" aria-label="Focus issue 菜单, 工作量 × 把握, 01  侦察" aria-pressed="false" data-node-kind="database" data-node-sublabel="工作量 × 把握" data-node-context="01  侦察">
-          <title>issue 菜单 · 工作量 × 把握 · 01  侦察</title>
+        <g id="node-menu" data-node-id="menu" data-node-label="Issue menu" tabindex="0" role="button" aria-label="Focus Issue menu, effort × confidence, 01  SCOUT" aria-pressed="false" data-node-kind="database" data-node-sublabel="effort × confidence" data-node-context="01  SCOUT">
+          <title>Issue menu · effort × confidence · 01  SCOUT</title>
           <rect x="640" y="110" width="140" height="68" rx="6" class="c-mask"/>
           <rect x="640" y="110" width="140" height="68" rx="6" class="c-database" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="database" class="semantic-sigil s-database" transform="translate(646 116) scale(0.6875)">
             <ellipse cx="8" cy="4" rx="5" ry="2"/>
             <path d="M3 4v8c0 1.1 2.2 2 5 2s5-.9 5-2V4M3 8c0 1.1 2.2 2 5 2s5-.9 5-2"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="710" y="142" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">issue 菜单</text>
-        <text data-detail="context" x="710" y="158" class="t-muted" font-size="9" text-anchor="middle">工作量 × 把握</text>
+          <text data-node-label="" data-detail-anchor="" x="710" y="142" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Issue menu</text>
+        <text data-detail="context" x="710" y="158" class="t-muted" font-size="9" text-anchor="middle">effort × confidence</text>
         </g>
 
-        <g id="node-gate1" data-node-id="gate1" data-node-label="选目标?" tabindex="0" role="button" aria-label="Focus 选目标?, 仓库 · issue, 02  闸门" aria-pressed="false" data-node-kind="security" data-node-sublabel="仓库 · issue" data-node-context="02  闸门">
-          <title>选目标? · 仓库 · issue · 02  闸门</title>
+        <g id="node-gate1" data-node-id="gate1" data-node-label="Pick targets?" tabindex="0" role="button" aria-label="Focus Pick targets?, repos · issues, 02  GATE" aria-pressed="false" data-node-kind="security" data-node-sublabel="repos · issues" data-node-context="02  GATE">
+          <title>Pick targets? · repos · issues · 02  GATE</title>
           <rect x="840" y="110" width="140" height="68" rx="6" class="c-mask"/>
           <rect x="840" y="110" width="140" height="68" rx="6" class="c-security" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(846 116) scale(0.6875)">
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="910" y="142" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">选目标?</text>
-        <text data-detail="context" x="910" y="158" class="t-muted" font-size="9" text-anchor="middle">仓库 · issue</text>
+          <text data-node-label="" data-detail-anchor="" x="910" y="142" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Pick targets?</text>
+        <text data-detail="context" x="910" y="158" class="t-muted" font-size="9" text-anchor="middle">repos · issues</text>
         </g>
 
-        <g id="node-implement" data-node-id="implement" data-node-label="动手实现" tabindex="0" role="button" aria-label="Focus 动手实现, fork · 认领 · 根因, 03  构建" aria-pressed="false" data-node-kind="backend" data-node-sublabel="fork · 认领 · 根因" data-node-context="03  构建">
-          <title>动手实现 · fork · 认领 · 根因 · 03  构建</title>
+        <g id="node-implement" data-node-id="implement" data-node-label="Implement" tabindex="0" role="button" aria-label="Focus Implement, fork · claim · root cause, 03  BUILD" aria-pressed="false" data-node-kind="backend" data-node-sublabel="fork · claim · root cause" data-node-context="03  BUILD">
+          <title>Implement · fork · claim · root cause · 03  BUILD</title>
           <rect x="840" y="288" width="140" height="68" rx="6" class="c-mask"/>
           <rect x="840" y="288" width="140" height="68" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(846 294) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="910" y="320" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">动手实现</text>
-        <text data-detail="context" x="910" y="336" class="t-muted" font-size="9" text-anchor="middle">fork · 认领 · 根因</text>
+          <text data-node-label="" data-detail-anchor="" x="910" y="320" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Implement</text>
+        <text data-detail="context" x="910" y="336" class="t-muted" font-size="8.8" text-anchor="middle">fork · claim · root cause</text>
         </g>
 
-        <g id="node-verify" data-node-id="verify" data-node-label="测试 + PR 草稿" tabindex="0" role="button" aria-label="Focus 测试 + PR 草稿, 仓库门禁 · PR 文案, 03  构建" aria-pressed="false" data-node-kind="backend" data-node-sublabel="仓库门禁 · PR 文案" data-node-context="03  构建">
-          <title>测试 + PR 草稿 · 仓库门禁 · PR 文案 · 03  构建</title>
+        <g id="node-verify" data-node-id="verify" data-node-label="Test + draft PR" tabindex="0" role="button" aria-label="Focus Test + draft PR, repo&#39;s gates · PR text, 03  BUILD" aria-pressed="false" data-node-kind="backend" data-node-sublabel="repo&#39;s gates · PR text" data-node-context="03  BUILD">
+          <title>Test + draft PR · repo&#39;s gates · PR text · 03  BUILD</title>
           <rect x="640" y="288" width="140" height="68" rx="6" class="c-mask"/>
           <rect x="640" y="288" width="140" height="68" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(646 294) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="710" y="320" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">测试 + PR 草稿</text>
-        <text data-detail="context" x="710" y="336" class="t-muted" font-size="9" text-anchor="middle">仓库门禁 · PR 文案</text>
+          <text data-node-label="" data-detail-anchor="" x="710" y="320" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Test + draft PR</text>
+        <text data-detail="context" x="710" y="336" class="t-muted" font-size="9" text-anchor="middle">repo&#39;s gates · PR text</text>
         </g>
 
-        <g id="node-gate2" data-node-id="gate2" data-node-label="批准补丁?" tabindex="0" role="button" aria-label="Focus 批准补丁?, 批准 · 调整 · 放弃, 04  闸门" aria-pressed="false" data-node-kind="security" data-node-sublabel="批准 · 调整 · 放弃" data-node-context="04  闸门">
-          <title>批准补丁? · 批准 · 调整 · 放弃 · 04  闸门</title>
+        <g id="node-gate2" data-node-id="gate2" data-node-label="Approve patches?" tabindex="0" role="button" aria-label="Focus Approve patches?, approve · adjust · drop, 04  GATE" aria-pressed="false" data-node-kind="security" data-node-sublabel="approve · adjust · drop" data-node-context="04  GATE">
+          <title>Approve patches? · approve · adjust · drop · 04  GATE</title>
           <rect x="440" y="288" width="140" height="68" rx="6" class="c-mask"/>
           <rect x="440" y="288" width="140" height="68" rx="6" class="c-security" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="security" class="semantic-sigil s-security" transform="translate(446 294) scale(0.6875)">
             <path d="M8 2.2 13 4v3.5c0 3.1-1.8 5.4-5 6.5-3.2-1.1-5-3.4-5-6.5V4Z"/>
             <path d="m5.8 8 1.5 1.5 3-3"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="510" y="320" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">批准补丁?</text>
-        <text data-detail="context" x="510" y="336" class="t-muted" font-size="9" text-anchor="middle">批准 · 调整 · 放弃</text>
+          <text data-node-label="" data-detail-anchor="" x="510" y="320" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Approve patches?</text>
+        <text data-detail="context" x="510" y="336" class="t-muted" font-size="9" text-anchor="middle">approve · adjust · drop</text>
         </g>
 
-        <g id="node-publish" data-node-id="publish" data-node-label="推送 + 开 PR" tabindex="0" role="button" aria-label="Focus 推送 + 开 PR, 干净 commit · 正确 base, 05  发布" aria-pressed="false" data-node-kind="backend" data-node-sublabel="干净 commit · 正确 base" data-node-context="05  发布">
-          <title>推送 + 开 PR · 干净 commit · 正确 base · 05  发布</title>
+        <g id="node-publish" data-node-id="publish" data-node-label="Push + open PR" tabindex="0" role="button" aria-label="Focus Push + open PR, clean commits · right base, 05  SHIP" aria-pressed="false" data-node-kind="backend" data-node-sublabel="clean commits · right base" data-node-context="05  SHIP">
+          <title>Push + open PR · clean commits · right base · 05  SHIP</title>
           <rect x="240" y="288" width="140" height="68" rx="6" class="c-mask"/>
           <rect x="240" y="288" width="140" height="68" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(246 294) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="310" y="320" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">推送 + 开 PR</text>
-        <text data-detail="context" x="310" y="336" class="t-muted" font-size="9" text-anchor="middle">干净 commit · 正确 base</text>
+          <text data-node-label="" data-detail-anchor="" x="310" y="320" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Push + open PR</text>
+        <text data-detail="context" x="310" y="336" class="t-muted" font-size="8.4" text-anchor="middle">clean commits · right base</text>
         </g>
 
-        <g id="node-track" data-node-id="track" data-node-label="跟踪 + 交接" tabindex="0" role="button" aria-label="Focus 跟踪 + 交接, CI · review · 汇报, 05  发布" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="CI · review · 汇报" data-node-context="05  发布">
-          <title>跟踪 + 交接 · CI · review · 汇报 · 05  发布</title>
+        <g id="node-track" data-node-id="track" data-node-label="Track + hand off" tabindex="0" role="button" aria-label="Focus Track + hand off, CI · review · report, 05  SHIP" aria-pressed="false" data-node-kind="frontend" data-node-sublabel="CI · review · report" data-node-context="05  SHIP">
+          <title>Track + hand off · CI · review · report · 05  SHIP</title>
           <rect x="40" y="288" width="140" height="68" rx="6" class="c-mask"/>
           <rect x="40" y="288" width="140" height="68" rx="6" class="c-frontend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="frontend" class="semantic-sigil s-frontend" transform="translate(46 294) scale(0.6875)">
@@ -5438,8 +5438,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <circle cx="4.1" cy="4.8" r=".7" class="sigil-fill"/>
             <circle cx="6.3" cy="4.8" r=".7" class="sigil-fill"/>
           </g>
-          <text data-node-label="" data-detail-anchor="" x="110" y="320" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">跟踪 + 交接</text>
-        <text data-detail="context" x="110" y="336" class="t-muted" font-size="9" text-anchor="middle">CI · review · 汇报</text>
+          <text data-node-label="" data-detail-anchor="" x="110" y="320" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Track + hand off</text>
+        <text data-detail="context" x="110" y="336" class="t-muted" font-size="9" text-anchor="middle">CI · review · report</text>
         </g>
 
         <!-- Connection labels -->
@@ -5447,47 +5447,47 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
 
 
-        <g data-detail="context" data-edge-from="gate1" data-edge-to="scout" data-edge-label="改选" data-edge-key="4" data-edge-id="revise">
-          <rect x="595" y="54" width="30" height="14" rx="3" class="c-mask"/>
-          <text x="610" y="64" class="t-edge-dashed" font-size="8" text-anchor="middle">改选</text>
+        <g data-detail="context" data-edge-from="gate1" data-edge-to="scout" data-edge-label="revise" data-edge-key="4" data-edge-id="revise">
+          <rect x="590.6" y="54" width="38.8" height="14" rx="3" class="c-mask"/>
+          <text x="610" y="64" class="t-edge-dashed" font-size="8" text-anchor="middle">revise</text>
         </g>
 
 
 
-        <g data-detail="context" data-edge-from="gate2" data-edge-to="implement" data-edge-label="调整" data-edge-key="8" data-edge-id="adjust">
-          <rect x="695" y="360" width="30" height="14" rx="3" class="c-mask"/>
-          <text x="710" y="370" class="t-edge-dashed" font-size="8" text-anchor="middle">调整</text>
+        <g data-detail="context" data-edge-from="gate2" data-edge-to="implement" data-edge-label="adjust" data-edge-key="8" data-edge-id="adjust">
+          <rect x="690.6" y="360" width="38.8" height="14" rx="3" class="c-mask"/>
+          <text x="710" y="370" class="t-edge-dashed" font-size="8" text-anchor="middle">adjust</text>
         </g>
-        <g data-detail="context" data-edge-from="gate2" data-edge-to="publish" data-edge-label="批准" data-edge-key="9" data-edge-id="g2-p">
-          <rect x="395" y="302" width="30" height="14" rx="3" class="c-mask"/>
-          <text x="410" y="312" class="t-edge-emphasis" font-size="8" text-anchor="middle">批准</text>
+        <g data-detail="context" data-edge-from="gate2" data-edge-to="publish" data-edge-label="approved" data-edge-key="9" data-edge-id="g2-p">
+          <rect x="385.8" y="302" width="48.4" height="14" rx="3" class="c-mask"/>
+          <text x="410" y="312" class="t-edge-emphasis" font-size="8" text-anchor="middle">approved</text>
         </g>
 
 
         <!-- Boundary labels (foreground masks keep routes out of titles) -->
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="0" data-composition-frame-kind="region" data-composition-frame-label="01  侦察">
-          <rect data-graph-role="structural-frame-label-mask" x="24" y="90" width="53.199999999999996" height="16" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="28" y="103" class="t-cloud" font-size="9" font-weight="600">01  侦察</text>
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="0" data-composition-frame-kind="region" data-composition-frame-label="01  SCOUT">
+          <rect data-graph-role="structural-frame-label-mask" x="24" y="90" width="58.6" height="16" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="28" y="103" class="t-cloud" font-size="9" font-weight="600">01  SCOUT</text>
         </g>
 
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="1" data-composition-frame-kind="region" data-composition-frame-label="02  闸门">
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="1" data-composition-frame-kind="region" data-composition-frame-label="02  GATE">
           <rect data-graph-role="structural-frame-label-mask" x="824" y="90" width="53.199999999999996" height="16" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="828" y="103" class="t-cloud" font-size="9" font-weight="600">02  闸门</text>
+          <text data-boundary-label="" x="828" y="103" class="t-cloud" font-size="9" font-weight="600">02  GATE</text>
         </g>
 
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="2" data-composition-frame-kind="region" data-composition-frame-label="03  构建">
-          <rect data-graph-role="structural-frame-label-mask" x="624" y="268" width="53.199999999999996" height="16" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="628" y="281" class="t-cloud" font-size="9" font-weight="600">03  构建</text>
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="2" data-composition-frame-kind="region" data-composition-frame-label="03  BUILD">
+          <rect data-graph-role="structural-frame-label-mask" x="624" y="268" width="58.6" height="16" rx="3" class="c-mask"/>
+          <text data-boundary-label="" x="628" y="281" class="t-cloud" font-size="9" font-weight="600">03  BUILD</text>
         </g>
 
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="3" data-composition-frame-kind="region" data-composition-frame-label="04  闸门">
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="3" data-composition-frame-kind="region" data-composition-frame-label="04  GATE">
           <rect data-graph-role="structural-frame-label-mask" x="424" y="268" width="53.199999999999996" height="16" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="428" y="281" class="t-cloud" font-size="9" font-weight="600">04  闸门</text>
+          <text data-boundary-label="" x="428" y="281" class="t-cloud" font-size="9" font-weight="600">04  GATE</text>
         </g>
 
-        <g data-graph-role="structural-frame-label" data-composition-frame-id="4" data-composition-frame-kind="region" data-composition-frame-label="05  发布">
+        <g data-graph-role="structural-frame-label" data-composition-frame-id="4" data-composition-frame-kind="region" data-composition-frame-label="05  SHIP">
           <rect data-graph-role="structural-frame-label-mask" x="24" y="268" width="53.199999999999996" height="16" rx="3" class="c-mask"/>
-          <text data-boundary-label="" x="28" y="281" class="t-cloud" font-size="9" font-weight="600">05  发布</text>
+          <text data-boundary-label="" x="28" y="281" class="t-cloud" font-size="9" font-weight="600">05  SHIP</text>
         </g>
 
         <!-- Legend -->
